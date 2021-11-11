@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+.comment-container {
+  width: 600px;
+}
+.textarea-container {
+  position: relative;
+  border-radius: 10px;
+  padding: 20px;
+}
+.textarea-container textarea {
+  width: 600px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.custombutton{
+  position: absolute;
+  width: 200px;
+  height: 200px;  
+}
