@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { OverlayTrigger } from 'react-bootstrap';
 import Popover from 'react-bootstrap/Popover';
 
@@ -16,5 +15,5 @@ const popover = (
     </OverlayTrigger>
   );
   
-  render(<Link />);
+
   export default Link;

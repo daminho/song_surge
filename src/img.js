@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { OverlayTrigger } from 'react-bootstrap';
 import Popover from 'react-bootstrap/Popover';
 import Upload from './upload';
@@ -17,5 +16,5 @@ const popover = (
     </OverlayTrigger>
   );
   
-  render(<Img />);
+
   export default Img;

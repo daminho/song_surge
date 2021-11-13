@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { OverlayTrigger } from 'react-bootstrap';
 import Popover from 'react-bootstrap/Popover';
 import { GiphyFetch } from "@giphy/js-fetch-api";
@@ -29,5 +28,5 @@ const popover = (
     </OverlayTrigger>
   );
   
-  render(<GifB />);
+  
   export default GifB;

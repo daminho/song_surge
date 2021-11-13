@@ -16,7 +16,7 @@ function App() {
           <Link></Link>
           <GifB></GifB>
           <Img></Img>
-        </div>{/*end comment container*/}
+        </div>{/*end text container*/}
         <div className="comment">
           <Postcomment
             userId="Happy Kid"
