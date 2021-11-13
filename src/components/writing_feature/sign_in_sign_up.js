@@ -6,8 +6,8 @@ import {
   signOut,
 } from "firebase/auth";
 import { setDoc, doc, collection, getDoc } from "firebase/firestore";
-import "./App.css";
-import { auth, db } from "./firebase";
+import { useNavigate } from "react-router";
+import { auth, db } from "../../firebase";
 
 function SignInSignUp() {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -16,8 +16,9 @@ function SignInSignUp() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginUserName, setLoginUserName] = useState("");
-
   const [user, setUser] = useState({});
+
+  const navigate = useNavigate();
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -51,6 +52,7 @@ function SignInSignUp() {
       const userDocsRef = doc(db, "users", `${uID}`);
       const data = await getDoc(userDocsRef);
       const user = data.data();
+      navigate("enter_song");
       setLoginUserName(user.username);
       console.log(user.username);
       console.log(userData.user.uid);
