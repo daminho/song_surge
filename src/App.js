@@ -1,18 +1,21 @@
 import './App.css';
 import { EmojiButton } from '@joeattardi/emoji-button';
 import Postcomment from './comment';
+import React from 'react';
+import Upload from "./upload";
+import Link from "./link";
+import GifB from "./gif";
 
 function App() {
   return (
     <div className="App">
       <div className='comment-container'>
         <div className="textarea-container">
-          <textarea type="text" className="input" placeholder="Show your support to the post!" v-model="newItem" onKeyPress="if(event.keyCode==13) {addItem();}" defaultValue={""}></textarea>
+          <input type="text" placeholder="Show your support to the post!"></input>
           <custombutton id = "emoji-button">😀</custombutton>
-          <input id = 'button' type = 'file' value = '' hidden></input>
-          <custombutton>🖼️</custombutton>
-          <custombutton>🎵</custombutton>
-          <custombutton>🎞️</custombutton>
+          <Upload></Upload>
+          <div><Link></Link></div>
+          <div><GifB></GifB></div>
         </div>{/*end comment container*/}
         <div className="comment">
           <Postcomment
@@ -46,10 +49,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   button.addEventListener('click', () => {
     picker.pickerVisible ? picker.hidePicker() : picker.showPicker(button);
-  });
-  const custombutton =  document.querySelector('button')
-  custombutton.addEventListener('click', ()=>{
-    button.click()
   });
 });
 
