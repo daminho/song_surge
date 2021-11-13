@@ -2,7 +2,7 @@ import './App.css';
 import { EmojiButton } from '@joeattardi/emoji-button';
 import Postcomment from './comment';
 import React from 'react';
-import Upload from "./upload";
+import Img from "./img";
 import Link from "./link";
 import GifB from "./gif";
 
@@ -13,9 +13,9 @@ function App() {
         <div className="textarea-container">
           <input type="text" placeholder="Show your support to the post!"></input>
           <custombutton id = "emoji-button">😀</custombutton>
-          <Upload></Upload>
-          <div><Link></Link></div>
-          <div><GifB></GifB></div>
+          <Link></Link>
+          <GifB></GifB>
+          <Img></Img>
         </div>{/*end comment container*/}
         <div className="comment">
           <Postcomment

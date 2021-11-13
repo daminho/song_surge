@@ -35,7 +35,7 @@ function Upload(){
             <custombutton
               onClick={onImageUpload}
             >
-              🖼️
+              upload image
             </custombutton>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
