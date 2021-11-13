@@ -1,4 +1,4 @@
-import "./postContent.css"
+import "./post_content.css"
 /**
  * @author Rvvse
  * @param {{
