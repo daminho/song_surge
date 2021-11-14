@@ -9,7 +9,7 @@ import {
 import './App.css';
 import SignInSignUp from './components/writing_feature/sign_in_sign_up';
 import EnterSongPage from './components/writing_feature/song_enter_page/song_enter_page';
-import WritingQuestion from './components/writing_feature/writing_question';
+import WritingQuestion from './components/writing_feature/writing_pages/writing_question';
 import PostContent from './components/posts_content/post_content';
 
 function App() {
