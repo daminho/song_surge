@@ -1,0 +1,32 @@
+.picker_header {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.picker_body {
+    font-size: 10px;
+}
+
+.color_picker {
+    height: 50px;
+    width: 50px;
+}
+
+.moody_picker{
+    height: 50px;
+    max-width: 300px;
+    background-color:cadetblue;
+}
+
+.categorization {
+    width: 450px;
+    flex-wrap: nowrap;
+    background-color: blanchedalmond;
+}
+
+.color_part {
+    max-width: 200px;
+    height: 50px;
+    flex-wrap: nowrap;
+    background-color: blue;
+}

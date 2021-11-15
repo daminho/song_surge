@@ -7,26 +7,27 @@ import {
   Switch
 } from "react-router-dom";
 import './App.css';
-import SignInSignUp from './components/writing_feature/sign_in_sign_up';
+import SignUp from './components/writing_feature/sign_up';
 import EnterSongPage from './components/writing_feature/song_enter_page/song_enter_page';
 import WritingQuestion from './components/writing_feature/writing_pages/writing_question';
 import PostContent from './components/posts_content/post_content';
-
+import SignIn from './components/writing_feature/log_in';
+import { AuthProvider } from './context/AuthContext';
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path = "/" element = {<WritingQuestion/>}> </Route>
-        <Route path = '/post_content_preview' element = {<PostContent/>}></Route>
-        <Route path = "/login" element = {<SignInSignUp/>}></Route>
-        <Route path = "/enter_song" element = {<EnterSongPage/>}></Route>
-        <Route path = "/writing_question" elemet = {<WritingQuestion/>}></Route> 
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path = "/" element = {<WritingQuestion/>}> </Route>
+          <Route path = '/post_content_preview' element = {<PostContent/>}></Route>
+          <Route path = "/sign_up" element = {<SignUp/>}></Route>
+          <Route path = "/sing_in" element = {<SignIn/>}></Route>
+          <Route path = "/enter_song" element = {<EnterSongPage/>}></Route>
+          <Route path = "/writing_question" elemet = {<WritingQuestion/>}></Route> 
+        </Routes>
+      </AuthProvider>
     </Router>
     
-// =======
-// import './App.css';
-// import PostContent from './components/posts_content/post_content.js';
 
 // function App() {
 //   return (
@@ -43,7 +44,6 @@ function App() {
 //         hashTags={['#love', '#perfect', '#happy']}
 //       ></PostContent>
 //     </div>
-// >>>>>>> main
 
   );
 }
