@@ -1,85 +1,136 @@
 import { useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { SketchPicker, SwatchesPicker, PhotoshopPicker } from 'react-color';
-import { ReactTags } from 'react-tag-autocomplete';
-
-import Dialog from '@mui/material/Dialog/Dialog';
-import DialogAction from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import MoodyPart from "../../posts_content/moody.js";
-
-import {CONST_HASHTAG} from '../../constant/hash_tag.js';
+import { listMoody} from './constant/mood_constant.js';
+// import CustomHashTag from "./constant/hash_tag_constant.js";
 import './writing_pages.css';
 import '../../posts_content/post_content.css';
-// function singleHashTag() {
 
-// }
+var listHashtag = [];
 
-function getHashtag() {
 
+function CustomHashTag(props) {
+    const {
+        content,
+        index,
+        hashtagClick
+    } = props;
+    return (
+        <Row className = "hash_tag" xs = {2}>
+            <Col className = "content">
+                {content}
+            </Col>
+            <Col className = "button">
+                <Button onClick = {() => {hashtagClick()}}>X</Button>
+            </Col>
+        </Row>
+    );
 }
+
+
+
 
 function WritingQuestion(props) {
 
     const [songLink, setSongLink] = useState("");
     const [content, setContent] = useState("");
     const [hashTags, setHashTags] = useState([]);
-    const [moodyPart, setMoodyPart] = useState({
-        symbol: '🌞',
-        string: 'Feeling happy like sunny day'
-      });
+    const [currentHashTag, setCurrentHashTag] = useState("");
+    const [currentHashTagList, setCurrentHashTagList] = useState(listHashtag);
+    const [moody, setMoody] = useState("");
     const [chosingColor, setChosingColor] = useState();
-    const [backgroundColor, setBackgroundColor] = useState();
-    const [isShowColorPicker, setColorPicker] = useState(false);
+    
+    const hashtagRef = useRef();
 
     function writeQuestion() {
         console.log("submit");
     }
 
-    function updateColor(hexColor) {
-        setChosingColor(hexColor);
+    function renderHashTag(tmpListHashTag) {
+        return tmpListHashTag.map((item, index) => {
+            return <Col xs = {2}>
+                <CustomHashTag
+                    key = {index}
+                    content = {item}
+                    index = {index}
+                    hashtagClick = {(event) => {console.log("click"); deleteHashTag(index)}}
+                ></CustomHashTag>
+            </Col>
+        });
     }
 
-    function _addHashTag(hashTag) {
+    function deleteHashTag(index) {
+        console.log(index);
+        var newHashTags = hashTags;
+        newHashTags.splice(index, 1);
+        listHashtag = renderHashTag(newHashTags);
+        setCurrentHashTagList(listHashtag);
+        setHashTags(newHashTags);
+    }
 
+    function addHashTag(event) {
+        if(event.keyCode == 13) {
+            event.preventDefault();
+            const newHashTags = hashTags;
+            var ok = true;
+            for (var i = 0; i < newHashTags.length; i++) {
+                if(newHashTags[i] == currentHashTag) {
+                    ok = false
+                }
+            }
+            if(ok == true) {
+                newHashTags.push(currentHashTag);
+            }
+            hashtagRef.current.value = "";
+            console.log(newHashTags);
+            listHashtag = renderHashTag(newHashTags);
+            setCurrentHashTagList(listHashtag);
+            console.log(listHashtag);
+            // console.log(newHashTags);
+            setCurrentHashTag("");
+            setHashTags(newHashTags);
+        }
     }
     
-    function _deleteHashTag(hashTag) {
-        
+    function _setMoody(event) {
+        setMoody(event.target.value);
     }
 
-    function suggestHashtag(curHashtag){
-        console.log(curHashtag);
-    }
-
-    console.log(moodyPart.symbol);
     return (
         <div style = {{maxWidth: 700}}>
             {/* Writing form -- Start */}
             <Form>
                 <Form.Group>
                     <Form.Label>Content</Form.Label>
-                    <Form.Control type = "text" as="textarea" placeholder = "Share your words with us" rows = {12}></Form.Control>
+                    <Form.Control type = "text" as="textarea"
+                         placeholder = "Share your words with us" rows = {12} 
+                         onChange = {(event) => {setContent(event.target.value)}}
+                    ></Form.Control>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Hashtag</Form.Label>
-                    <Form.Control type = "text" placeholder = "Hashtag" onChange = {(event) => {suggestHashtag(event.target.value)}} ></Form.Control>
+                    <Container>
+                        <Row>
+                            {currentHashTagList}
+                        </Row>
+                    </Container>
+                    <Form.Control
+                        type = "text" placeholder = "Hashtag"
+                        onKeyDown = {(event) => {addHashTag(event)}}
+                        onChange = {(event) => {setCurrentHashTag(event.target.value);}}
+                        ref = {hashtagRef}
+                    ></Form.Control>
                 </Form.Group>
             </Form>
             {/* Writing form -- End */}
-                {/* style = {{width: 450,  flexWrap: "nowrap", backgroundColor: "blue"}} */}
 
             <Container >
                 <Row className = "categorization">
-                    <Col className = "color_part">
-                        <Row>
+                    <Col xs = {5} >
+                        <Row className = "color_part"  >
                             <Form.Control
                                 type = "color"
                                 defaultValue = "#ffffff"
-                                onChange = {(event) => {setColorPicker(event.target.value)}}
+                                onChange = {(event) => {setChosingColor(event.target.value)}}
                                 className = "color_picker"
                             ></Form.Control>
                             <Col style = {{marginLeft: 10}}>
@@ -88,11 +139,9 @@ function WritingQuestion(props) {
                             </Col>
                         </Row>
                     </Col>
-                    <Col className = "moody_picker" >
-                        <Form.Select className = "moody_picker" placeholder = "Pick your mood">
-                            <option>
-                                🥒 Feeling like cucumber
-                            </option>
+                    <Col xs = {5}>
+                        <Form.Select className = "moody_picker" placeholder = "Pick your mood" onChange = {(event) => {_setMoody(event)}}>
+                            {listMoody}
                         </Form.Select>
                     </Col>
                 </Row>  

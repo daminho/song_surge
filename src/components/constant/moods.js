@@ -1,12 +1,38 @@
 export const MOODY = {
-    "Happy": {
-        moodColor: '#f9f1d1',
-        symbol: '🌞',
-        content: 'Feeling happy like a sunny day'
+    "Cucumber": {
+        moodColor: '#DEFFCB',
+        moodSymbol: '🥒',
+        moodContent: 'As cool as a cucumber',
+        moodValue: "Cucumber"
     },
-    "Blue": {
+    "CozyBed" : {
+        moodColor: "#DD9E8D",
+        moodSymbol: "🛏️",
+        moodContent: "Cozy in bed",
+        moodValue: "CozyBed"
+    },
+    "Blue" : {
+        moodColor: "#D2F4FF",
+        moodSymbol: '🌀',
+        moodContent: "Feeling blue",
+        moodValue: "Blue",
+    },
+    "HappySunny": {
         moodColor: '#f9f1d1',
-        symbol: '🌞',
-        content: 'Feeling Blue'
-    } 
+        moodSymbol: '🌞',
+        moodContent: 'Feeling happy like a sunny day',
+        moodValue: 'HappySunny'
+    },
+    "FireRock" : {
+        moodColor: "#FFDBDB",
+        moodSymbol: "💥",
+        moodContent: "Ready to rock",
+        moodValue: "FireRock",
+    },
+    "NervousRobot" : {
+        moodColor: "",
+        moodSymbol: "🤖",
+        moodContent: "Nervous as a robot",
+        moodValue: "NervousRobot",
+    }
 }

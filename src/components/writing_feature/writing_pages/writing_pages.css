@@ -14,19 +14,42 @@
 
 .moody_picker{
     height: 50px;
-    max-width: 300px;
-    background-color:cadetblue;
+    max-width: 250px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .categorization {
-    width: 450px;
+    /* width: 450px; */
     flex-wrap: nowrap;
-    background-color: blanchedalmond;
+    padding: 10px;
 }
 
 .color_part {
-    max-width: 200px;
+    /* max-width: 200px; */
     height: 50px;
+    width: 250px;
     flex-wrap: nowrap;
-    background-color: blue;
+    padding: 5px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.hash_tag {
+    width: 70;
+    height: 30;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    flex-wrap: nowrap;
+}
+
+.hash_tag .content{
+    overflow: hidden;
+    background-color: rebeccapurple;
+    width: 50;
+}
+
+.hash_tag .button {
+    width: 20;
 }

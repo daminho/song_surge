@@ -7,11 +7,11 @@ import {
   Switch
 } from "react-router-dom";
 import './App.css';
-import SignUp from './components/writing_feature/sign_up';
+import SignUp from './components/sign_in_sign__up/sign_up';
 import EnterSongPage from './components/writing_feature/song_enter_page/song_enter_page';
 import WritingQuestion from './components/writing_feature/writing_pages/writing_question';
 import PostContent from './components/posts_content/post_content';
-import SignIn from './components/writing_feature/log_in';
+import SignIn from './components/sign_in_sign__up/log_in';
 import { AuthProvider } from './context/AuthContext';
 function App() {
   return (
