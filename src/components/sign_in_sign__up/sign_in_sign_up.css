@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+}
+
+.log_in_container {
+    width: 500px;
+}
+
+.sign_in {
+    margin: 0 auto;
+    width: 600;
+}

@@ -1,9 +1,9 @@
 export const CONST_HASHTAG = [
-    {id: 1, name: "happy"},
-    {id: 2, name: "sad"},
-    {id: 3, name: "surprise"},
-    {id: 4, name: "afraid"},
-    {id: 5, name: "disgust"},
-    {id: 6, name: "angry"},
+    {id: 1, title: "happy"},
+    {id: 2, title: "sad"},
+    {id: 3, title: "surprise"},
+    {id: 4, title: "afraid"},
+    {id: 5, title: "disgust"},
+    {id: 6, title: "angry"},
 ];
 

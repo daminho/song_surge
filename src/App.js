@@ -9,21 +9,23 @@ import {
 import './App.css';
 import SignUp from './components/sign_in_sign__up/sign_up';
 import EnterSongPage from './components/writing_feature/song_enter_page/song_enter_page';
-import WritingQuestion from './components/writing_feature/writing_pages/writing_question';
+import WritingPost from './components/writing_feature/writing_pages/writing_post';
 import PostContent from './components/posts_content/post_content';
 import SignIn from './components/sign_in_sign__up/log_in';
+import SongSurgeShare from './components/share/song_surge_share';
 import { AuthProvider } from './context/AuthContext';
 function App() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path = "/" element = {<WritingQuestion/>}> </Route>
+          <Route path = "/" element = {<SignIn/>}> </Route>
           <Route path = '/post_content_preview' element = {<PostContent/>}></Route>
           <Route path = "/sign_up" element = {<SignUp/>}></Route>
           <Route path = "/sing_in" element = {<SignIn/>}></Route>
           <Route path = "/enter_song" element = {<EnterSongPage/>}></Route>
-          <Route path = "/writing_question" elemet = {<WritingQuestion/>}></Route> 
+          <Route path = "/writing_post" element = {<WritingPost/>}></Route> 
+          <Route path = "/song_surge_share" element = {<SongSurgeShare/>} />
         </Routes>
       </AuthProvider>
     </Router>

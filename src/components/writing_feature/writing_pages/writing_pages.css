@@ -37,19 +37,41 @@
 
 
 .hash_tag {
-    width: 70;
-    height: 30;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    flex-wrap: nowrap;
+    height: 50px;
+    background-color:transparent;
 }
 
+.hash_tag .text_field {
+    background-color: transparent;
+    height: 50px;
+}
 .hash_tag .content{
     overflow: hidden;
     background-color: rebeccapurple;
     width: 50;
+    height: 20;
 }
 
 .hash_tag .button {
     width: 20;
+    height: 20;
+}
+
+.writing_part {
+    width: 60%;
+    align-content: center;
+}
+
+.preview_part {
+    width: 40%;
+    align-content: center;
+}
+
+.writing_button {
+    margin: 5px;
+    background-color: turquoise;
+}
+
+.form_label {
+    font-weight: bold;
 }

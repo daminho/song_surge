@@ -1,10 +1,12 @@
 .post_content {
     border-radius: 10px;
-    background-color: #fffdf5;
+    background-color: #ffffff;
     width: 600px;
     padding: 20px;
     box-sizing: border-box;
     box-shadow: 0 0 10px #e1e1e1;
+    margin-left: 250px;
+    margin-top: 50px;
 }
 .post_header {
     margin-bottom: 16px;
@@ -41,8 +43,11 @@
     margin-right: 10px;
 }
 .hash_tag {
-    padding: 5px 20px;
-    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 25px;
+    border-radius: 15px;
+    text-decoration: underline;
     display: flex;
     align-items: center;
     justify-content: center;

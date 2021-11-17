@@ -30,7 +30,7 @@ export const MOODY = {
         moodValue: "FireRock",
     },
     "NervousRobot" : {
-        moodColor: "",
+        moodColor: "#bcbcbc",
         moodSymbol: "🤖",
         moodContent: "Nervous as a robot",
         moodValue: "NervousRobot",
