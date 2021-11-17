@@ -13,7 +13,9 @@ import WritingPost from './components/writing_feature/writing_pages/writing_post
 import PostContent from './components/posts_content/post_content';
 import SignIn from './components/sign_in_sign__up/log_in';
 import SongSurgeShare from './components/share/song_surge_share';
+import SongSurgeSearch from './components/search/song_surge_search';
 import { AuthProvider } from './context/AuthContext';
+import WritingQuestion from './components/writing_feature/writing_pages/writing_question';
 function App() {
   return (
     <Router>
@@ -25,7 +27,9 @@ function App() {
           <Route path = "/sing_in" element = {<SignIn/>}></Route>
           <Route path = "/enter_song" element = {<EnterSongPage/>}></Route>
           <Route path = "/writing_post" element = {<WritingPost/>}></Route> 
+          <Route path = "/writing_question" element = {<WritingQuestion/>}></Route> 
           <Route path = "/song_surge_share" element = {<SongSurgeShare/>} />
+          <Route path = "/song_surge_search" element = {<SongSurgeSearch/>} />
         </Routes>
       </AuthProvider>
     </Router>

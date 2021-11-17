@@ -54,7 +54,7 @@ function WritingPost(props) {
             moody: moody,
             songLink: songLink,
         });
-        
+        navigate("/song_surge_share");
     }
 
     function _setMoody(event) {

@@ -47,7 +47,7 @@ export default function AppNavBar(props) {
 
           {
             isLogin 
-            ? <Link to="/share" style={{ textDecoration: 'none'}}>
+            ? <Link to="/song_surge_share" style={{ textDecoration: 'none'}}>
               <Typography variant="h6" className={classes.titleItem}>
                 Share
               </Typography>
@@ -57,7 +57,7 @@ export default function AppNavBar(props) {
 
           {
             isLogin
-            ? <Link to="/search" style={{ textDecoration: 'none'}}>
+            ? <Link to="/song_surge_search" style={{ textDecoration: 'none'}}>
               <Typography variant="h6" className={classes.titleItem}>
                 Search
               </Typography>

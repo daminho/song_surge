@@ -6,32 +6,32 @@ import AppNavBar from "../constant/web_bar.js";
 import { getDocs, collection, doc, docs} from "@firebase/firestore";
 import PostContent from "../posts_content/post_content.js";
 import Option from "../side_info/options.js";
-import "./song_surge_share.css";
+import "./song_surge_search.css";
 import { MOODY } from "../constant/moods.js";
 
-export default function SongSurgeShare(props) {
+export default function SongSurgeSearch(props) {
 
     const {currentUser} = useAuth();
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
-    const postsRef = collection(db, "posts");
+    const postsRef = collection(db, "questions");
     useEffect(() => {
         const getPosts = async () => {
             const data = await getDocs(postsRef);
             const listPost = data.docs.map((doc) => {
                 const docData = doc.data();
                 console.log(docData.moody);
-                return <div style = {{width: "fit-content", marginLeft: 250}}>
-                    <PostContent 
-                    link = {docData.songLink}
-                    backgroundColor = {docData.color}
-                    content = {docData.content}
-                    hashTags = {docData.hashTags}
-                    moodyPart = {MOODY[docData.moody]}
-                    userId = {docData.userId}
-                    userName = {docData.userName}
-                    isPost = {true}/>
-                </div>;
+                return  <div style = {{width: "fit-content", marginLeft: 250}}>
+                        <PostContent 
+                        link = {docData.songLink}
+                        backgroundColor = {docData.color}
+                        content = {docData.content}
+                        hashTags = {docData.hashTags}
+                        moodyPart = {MOODY[docData.moody]}
+                        userId = {docData.userId}
+                        userName = {docData.userName}
+                        isPost = {false}/>
+                    </div>;
             });
             setPosts(listPost);
         }
@@ -41,7 +41,7 @@ export default function SongSurgeShare(props) {
 
     return (
         <div>
-            <AppNavBar nameAppBar = "iSongSurgeShare"/>
+            <AppNavBar nameAppBar = "iSongSurgeSearch"/>
             <div style = {{display: "flex", flexDirection: "row"}}>
                 <div style = {{width: 1050}}>
                     {posts}

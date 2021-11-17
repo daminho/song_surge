@@ -65,6 +65,7 @@
 .preview_part {
     width: 40%;
     align-content: center;
+    /* text-align: center; */
 }
 
 .writing_button {
