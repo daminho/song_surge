@@ -1,14 +1,16 @@
 (the actual final code are implemented in 'writing_feature' branch)
 # Project Summary
-Many people listen to music alone during the pandemic, but they have no interaction with other music lovers and couldn't properly enrich their playlists.
+Many people listen to music alone during the pandemic, but we strongly believe that interacting with other music lovers could properly enrich their music experience.
+
 We created a platform that only focuses on music, which provides a variety of ways to help users express their feelings and understand others.
+
 SongSurge is divided into two independent parts (share & search) so that both users with different purposes can immerse themselves in the emotional resonance with others.
 # Instruction
-Entering the platform users will face the log in page. 
+Entering the platform users will face the log in page. Users can click sign up to sign up for new account.
 
 ![](https://i.imgur.com/iR4K0Tp.png)
 
-After signing up the account information will be added to the server, and the users will be able to log in. Then a feed of SongSurgeShare will appear containing the posts other users had uploaded. On the right, users can check the hashtags and the moods, which are the two main features users can express their feelings or situations with. 
+After signing up the account information will be added to the server, and the users will be able to log in. Then a feed of SongSurgeShare will appear containing the posts other users had uploaded. This feed is the same for all users. On the right, users can check the hashtags and the moods, which allows users to filter their feed to contain only songs from those hashtag. 
 
 ![](https://i.imgur.com/U3BbzaE.png)
 
@@ -20,13 +22,18 @@ Users can write anything about the song, including what they like about it or an
 
 ![](https://i.imgur.com/4MKkDSk.png)
 
+Users can also post questions asking for a song that matches the explanation, and other users can comment recommending the song the post-writer seems to seek for. Hashtags and moods can be used to filter out the atmosphere of the song.
+
+![](https://i.imgur.com/v78ByZG.png)
+
+
 Users will also be able to add comments to each of the posts. In the comments, users can use emojis, pictures, and gifs to express more on their own ideas about the post or the song itself. 
 
-SongSurgeSearch - which can be switched clicking the word "Search" placed at the upper right - is implemented in a similar manner. Users can post questions asking for a song that matches the explanation, and other users can comment recommending the song the post-writer seems to seek for. Hashtags and moods can be used to filter out the atmosphere of the song. 
+SongSurgeSearch - which can be switched clicking the word "Search" placed at the upper right - is implemented in a similar manner. 
 
 
 # URL
-Prototype:
+Prototype: https://songsurgehci.herokuapp.com/
 Git Repository: https://github.com/daminho/song_surge
 # Libraries and Framework
 - joeattardi/emoji-button
