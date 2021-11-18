@@ -8,6 +8,7 @@ import PostContent from "../posts_content/post_content.js";
 import Option from "../side_info/options.js";
 import "./song_surge_search.css";
 import { MOODY } from "../constant/moods.js";
+import Filter from "../side_info/filter.js";
 
 export default function SongSurgeSearch(props) {
 
@@ -21,17 +22,19 @@ export default function SongSurgeSearch(props) {
             const listPost = data.docs.map((doc) => {
                 const docData = doc.data();
                 console.log(docData.moody);
-                return  <div style = {{width: "fit-content", marginLeft: 250}}>
-                        <PostContent 
-                        link = {docData.songLink}
-                        backgroundColor = {docData.color}
-                        content = {docData.content}
-                        hashTags = {docData.hashTags}
-                        moodyPart = {MOODY[docData.moody]}
-                        userId = {docData.userId}
-                        userName = {docData.userName}
-                        isPost = {false}/>
-                    </div>;
+                return  <div style = {{width: "fit-content", marginRight: 50, marginLeft: 30}}>
+                    <PostContent 
+                    postId = {doc.id}
+                    link = {docData.songLink}
+                    backgroundColor = {docData.color}
+                    content = {docData.content}
+                    hashTags = {docData.hashTags}
+                    moodyPart = {MOODY[docData.moody]}
+                    userId = {docData.userId}
+                    userName = {docData.userName}
+                    postingTime = {docData.postingTime.seconds}
+                    isPost = {false}/>
+                </div>;
             });
             setPosts(listPost);
         }
@@ -41,9 +44,12 @@ export default function SongSurgeSearch(props) {
 
     return (
         <div>
-            <AppNavBar nameAppBar = "iSongSurgeSearch"/>
-            <div style = {{display: "flex", flexDirection: "row"}}>
-                <div style = {{width: 1050}}>
+            <AppNavBar nameAppBar = "iSongSurgeSearch" isShare = {false}/>
+            <div className = "content">
+                <div>
+                    <Filter/>
+                </div>
+                <div style = {{width: 680}}>
                     {posts}
                 </div>
                 <div>

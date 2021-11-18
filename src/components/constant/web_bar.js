@@ -34,6 +34,7 @@ export default function AppNavBar(props) {
   const {
     nameAppBar,
     isLogin = true,
+    isShare = true,
   } = props;
   return (
     <div className={classes.root}>
@@ -46,7 +47,7 @@ export default function AppNavBar(props) {
           </div>
 
           {
-            isLogin 
+            (isLogin && isShare == false) 
             ? <Link to="/song_surge_share" style={{ textDecoration: 'none'}}>
               <Typography variant="h6" className={classes.titleItem}>
                 Share
@@ -56,7 +57,7 @@ export default function AppNavBar(props) {
           }
 
           {
-            isLogin
+            (isLogin && isShare)
             ? <Link to="/song_surge_search" style={{ textDecoration: 'none'}}>
               <Typography variant="h6" className={classes.titleItem}>
                 Search

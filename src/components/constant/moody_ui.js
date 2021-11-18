@@ -6,9 +6,9 @@ export function Moody(props) {
         moodyPart
     } = props;
     return(
-        <div className="moody_part" style = {{backgroundColor: moodyPart == null ? "transparent" : moodyPart.moodColor}}>
+        <button className="moody_part" style = {{backgroundColor: moodyPart == null ? "transparent" : moodyPart.moodColor}}>
             <div className="symbol">{moodyPart?.moodSymbol}</div>
             <div className="string">{moodyPart?.moodContent}</div>
-        </div>
+        </button>
     );
 }

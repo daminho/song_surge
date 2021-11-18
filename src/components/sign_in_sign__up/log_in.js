@@ -29,7 +29,7 @@ function SignUp() {
     console.log("log_in");
     try {
       const user = await login(loginEmail, loginPassword);
-      navigate("writing_question");
+      navigate("song_surge_share");
     } catch {
       console.log("failed");
       setErrorMessage("Invalid email or password");

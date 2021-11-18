@@ -8,12 +8,13 @@ import { useNavigate } from 'react-router';
 
 function Option(props) {
     const {
+        search = false,
         hashTags = [],
         moods = ["HappySunny", "Blue",  "Cucumber", "FireRock"]
     } = props
     const navigate = useNavigate();
     function writePost() {
-        navigate("/enter_song");
+        search ? navigate("/writing_question") : navigate("/enter_song");
     }
     
     return (

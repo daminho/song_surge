@@ -23,9 +23,9 @@ function WritingPost(props) {
     
     const location = useLocation();
     const state = location.state;
+    const navigate = useNavigate();
     const { currentUser } = useAuth();
     const [user, setUser] = useState({});
-    const navigate = useNavigate();
     const userRef = doc(db, "users", currentUser.uid);
     
     useEffect(() => {
@@ -40,7 +40,7 @@ function WritingPost(props) {
     const [content, setContent] = useState("");
     const [hashTags, setHashTags] = useState([]);
     const [moody, setMoody] = useState("");
-    const [chosingColor, setChosingColor] = useState();
+    const [chosingColor, setChosingColor] = useState("#ffffff");
     const hashtagRef = useRef(); 
 
     async function writeQuestion() {
@@ -53,6 +53,8 @@ function WritingPost(props) {
             hashTags: hashTags,
             moody: moody,
             songLink: songLink,
+            comment: [],
+            postingTime: Date.now()
         });
         navigate("/song_surge_share");
     }
@@ -141,7 +143,7 @@ function WritingPost(props) {
                     </div>
                 </div>
                 <div className = "preview_part"> 
-                    <div>
+                    <div style = {{width: "fit-content"}}>
                         <div style = {{height: 50}}/>
                         <div style = {{textAlign: "center"}}>Preview Post</div>
                         <div style = {{height: 50}}/>

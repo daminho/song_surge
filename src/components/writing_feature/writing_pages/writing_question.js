@@ -39,11 +39,11 @@ function WritingQuestion(props) {
     const [content, setContent] = useState("");
     const [hashTags, setHashTags] = useState([]);
     const [moody, setMoody] = useState("");
-    const [chosingColor, setChosingColor] = useState();
+    const [chosingColor, setChosingColor] = useState("#ffffff");
     const hashtagRef = useRef(); 
-
     async function writeQuestion() {
         const postsRef = collection(db, "questions");
+        const current = new Date();
         const docRef = await addDoc(postsRef, {
             content: content,
             userId: currentUser.uid,
@@ -51,6 +51,9 @@ function WritingQuestion(props) {
             userName: user.username,
             hashTags: hashTags,
             moody: moody,
+            postingTime: current,
+            comment: [],
+            postingTime: Date.now()
         });
         navigate("/song_surge_search");
     }
@@ -131,7 +134,7 @@ function WritingQuestion(props) {
                     </div>
                 </div>
                 <div className = "preview_part"> 
-                    <div style = {{backgroundColor: "blue"}}>
+                    <div style = {{width: "fit-content"}}>
                         <div style = {{height: 50}}/>
                         <div style = {{textAlign: "center"}}>Preview Post</div>
                         <div style = {{height: 50}}/>
