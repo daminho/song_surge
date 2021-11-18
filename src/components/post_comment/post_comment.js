@@ -32,16 +32,9 @@ export default function UserComment(props) {
     }, []);
 
     return(
-        <div>
-            <Container>
-                <Row>
-                    <Col>
-                        
-                    </Col>
-                    <Col>
-                    </Col>
-                </Row>
-            </Container>
+        <div style = {{backgroundColor: "transparent"}}>
+            <div style = {{fontSize: 12}}>{userName}</div>
+            <div style = {{fontSize: 20}}>{content}</div>
         </div>
     );
 

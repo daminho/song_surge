@@ -9,14 +9,15 @@ import { useNavigate } from 'react-router';
 function Filter(props) {
     const {
         search = false,
-        hashtag = "",
-        mood = "HappySunny",
+        hashtag,
+        mood,
         closeFunction = () => {},
     } = props
     const navigate = useNavigate();
     function writePost() {
         search ? navigate("/writing_question") : navigate("/enter_song");
     }
+    const hasFilter = (hashtag != undefined || mood != undefined);
     
     return (
         <div class = "options">
@@ -24,10 +25,11 @@ function Filter(props) {
                 <div class = "filterbox">
                     <Row style = {{marginBottom: 20}}>
                         <Col xs = {10}><div class = "moodytxt">{'Filter'}</div></Col>
-                        <Col><button>X</button></Col>
+                        {hasFilter ? <Col><button>X</button></Col> : <div/>}
                     </Row>
-                    <Moody moodyPart = {MOODY[mood]}/>
-                    <HashTag className = "hash_tag" hashtag = {hashtag}/>
+                    {mood != undefined ? <Moody moodyPart = {MOODY[mood]}/> : <div/>}
+                    {hashtag != undefined ? <HashTag className = "hash_tag" hashtag = {hashtag}/> : <div/>}
+                    {hasFilter ? <div/> : <div>There is no filter yet</div>}
                 </div>
             </div>
         </div>

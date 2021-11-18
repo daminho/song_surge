@@ -37,6 +37,7 @@ export default function SongSurgeShare(props) {
                     isPost = {true}/>
                 </div>;
             });
+            listPost.reverse();
             setPosts(listPost);
         }
 
@@ -50,7 +51,7 @@ export default function SongSurgeShare(props) {
                 <div>
                     <Filter/>
                 </div>
-                <div>
+                <div style = {{width: 680}}>
                     {posts}
                 </div>
                 <div>

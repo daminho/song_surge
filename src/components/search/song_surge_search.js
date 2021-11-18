@@ -49,7 +49,7 @@ export default function SongSurgeSearch(props) {
                 <div>
                     <Filter/>
                 </div>
-                <div>
+                <div style = {{width: 680}}>
                     {posts}
                 </div>
                 <div>

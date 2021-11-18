@@ -65,6 +65,7 @@ function PostContent(props) {
     const { currentUser } = useAuth();
     const [user, setUser] = useState({});
     const [postComment, setPostComment] = useState([]);
+    const [showComment, setShowComment] = useState(false);
 
     const commentRef = useRef();
 
@@ -172,6 +173,11 @@ function PostContent(props) {
                             />
                         </div>
                     </div>
+                    {
+                        showComment == false
+                        ? <a style = {{textDecoration: "underline"}} onClick = {(event) => {setShowComment(true)}}>Show comments</a>
+                        : <div/>
+                    }
                 </div>
             }
         </div>
