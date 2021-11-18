@@ -8,6 +8,7 @@ import PostContent from "../posts_content/post_content.js";
 import Option from "../side_info/options.js";
 import "./song_surge_share.css";
 import { MOODY } from "../constant/moods.js";
+import Filter from "../side_info/filter.js";
 
 export default function SongSurgeShare(props) {
 
@@ -20,9 +21,11 @@ export default function SongSurgeShare(props) {
             const data = await getDocs(postsRef);
             const listPost = data.docs.map((doc) => {
                 const docData = doc.data();
-                console.log(docData.moody);
-                return <div style = {{width: "fit-content", marginLeft: 250}}>
+                console.log(doc.id);
+                console.log(docData.postingTime.seconds);
+                return <div style = {{width: "fit-content", marginRight: 50, marginLeft: 30}}>
                     <PostContent 
+                    postId = {doc.id}
                     link = {docData.songLink}
                     backgroundColor = {docData.color}
                     content = {docData.content}
@@ -30,6 +33,7 @@ export default function SongSurgeShare(props) {
                     moodyPart = {MOODY[docData.moody]}
                     userId = {docData.userId}
                     userName = {docData.userName}
+                    postingTime = {docData.postingTime}
                     isPost = {true}/>
                 </div>;
             });
@@ -42,8 +46,11 @@ export default function SongSurgeShare(props) {
     return (
         <div>
             <AppNavBar nameAppBar = "iSongSurgeShare"/>
-            <div style = {{display: "flex", flexDirection: "row"}}>
-                <div style = {{width: 1050}}>
+            <div className = "content">
+                <div>
+                    <Filter/>
+                </div>
+                <div>
                     {posts}
                 </div>
                 <div>

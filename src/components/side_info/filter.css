@@ -1,0 +1,101 @@
+.options {
+    /* position: absolute; */
+    width: 428px;
+}
+
+.writepostbox {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    
+    padding: 16px 28px;
+
+    background: #e4e3e3;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+}
+
+.writepostmsg {
+    position: relative;
+    top: 25%;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+
+    align-items: center;
+    text-align: center;
+
+    color: #000;
+}
+
+.trendingbox {
+    position: fixed;
+    position: relative;
+    width: 400px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.trendingtoday {
+    position : relative;
+    padding: 0px 0px 4px 0px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: left;
+    color: #000000;
+}
+
+.tagbox {
+    position: relative;
+    margin-top: 12px; 
+    height: 35px;
+    border-radius: 24px;
+}
+
+.filterbox {
+    position: fixed;
+    position: relative;
+    width: 400px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    margin-top: 100px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.moodytxt {
+    position : relative;
+    padding: 0px 0px 4px 0px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: left;
+    color: #000000;
+    width: fit-content;
+}
+
+.moody {
+    position: relative;
+    margin-top: 12px; 
+    height: 35px;
+
+    background: #e4e3e3;
+    border-radius: 24px;
+}
+
+.write_button {
+    width: 200px;
+    margin-top: 100px;
+    position: fixed;
+    position: relative;
+    margin-bottom: 50px;
+}
