@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { rtdb, db } from "../../firebase.js"
 import { doc, getDoc, updateDoc } from "@firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import { update, child, ref, push } from "@firebase/database";
+import { update, child, ref, push, onValue } from "@firebase/database";
 /**
  * @author Rvvse
  * @param {{
@@ -56,7 +56,6 @@ function PostContent(props) {
         isPreview = false,
     } = props
     
-    console.log(moodyPart);
 
     const isQuestion = link == undefined;
     const [curComment, setComment] = useState("");
@@ -132,6 +131,16 @@ function PostContent(props) {
         }
     }
 
+    function onClickComment (newVal) {
+        if(newVal == true) {
+            const commentRef = ref(rtdb, 'comments/');
+            onValue(commentRef, (snapshot) => {
+                const data = snapshot.val();
+            });
+        }
+        setShowComment(newVal)
+    } 
+
 	var vidId = "";
 	if(link != undefined) {
         vidId = getVidID(link);
@@ -175,8 +184,10 @@ function PostContent(props) {
                     </div>
                     {
                         showComment == false
-                        ? <a style = {{textDecoration: "underline"}} onClick = {(event) => {setShowComment(true)}}>Show comments</a>
-                        : <div/>
+                        ? <a style = {{textDecoration: "underline"}} onClick = {(event) => {onClickComment(true)}}>Show comments</a>
+                        : <div>
+                            <a style = {{textDecoration: "underline"}} onClick = {(event) => {onClickComment(false)}}>Show less</a>
+                        </div>
                     }
                 </div>
             }
