@@ -1,0 +1,78 @@
+.picker_header {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.picker_body {
+    font-size: 10px;
+}
+
+.color_picker {
+    height: 50px;
+    width: 50px;
+}
+
+.moody_picker{
+    height: 50px;
+    max-width: 250px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.categorization {
+    /* width: 450px; */
+    flex-wrap: nowrap;
+    padding: 10px;
+}
+
+.color_part {
+    /* max-width: 200px; */
+    height: 50px;
+    width: 250px;
+    flex-wrap: nowrap;
+    padding: 5px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.hash_tag {
+    height: 50px;
+    background-color:transparent;
+}
+
+.hash_tag .text_field {
+    background-color: transparent;
+    height: 50px;
+}
+.hash_tag .content{
+    overflow: hidden;
+    background-color: rebeccapurple;
+    width: 50;
+    height: 20;
+}
+
+.hash_tag .button {
+    width: 20;
+    height: 20;
+}
+
+.writing_part {
+    width: 60%;
+    align-content: center;
+}
+
+.preview_part {
+    width: 40%;
+    align-content: center;
+    /* text-align: center; */
+}
+
+.writing_button {
+    margin: 5px;
+    background-color: turquoise;
+}
+
+.form_label {
+    font-weight: bold;
+}

@@ -1,10 +1,11 @@
 .post_content {
     border-radius: 10px;
-    background-color: #fffdf5;
+    background-color: #ffffff;
     width: 600px;
     padding: 20px;
     box-sizing: border-box;
     box-shadow: 0 0 10px #e1e1e1;
+    margin-top: 50px;
 }
 .post_header {
     margin-bottom: 16px;
@@ -31,21 +32,28 @@
     margin-top: 16px;
 }
 .moody_part {
-    background-color: #f9f1d1;
     border-radius: 20px;
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 5px 20px;
+    margin-bottom: 5px;
 }
 .moody_part .symbol {
     margin-right: 10px;
 }
 .hash_tag {
-    padding: 5px 20px;
-    border-radius: 20px;
+    /* padding-left: 10px;
+    padding-right: 10px; */
+    padding: 5px 10px;
+    height: 25px;
+    border-radius: 15px;
+    text-decoration: underline;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #e4e3e3;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
