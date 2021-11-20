@@ -21,8 +21,6 @@ export default function SongSurgeShare(props) {
             const data = await getDocs(postsRef);
             const listPost = data.docs.map((doc) => {
                 const docData = doc.data();
-                console.log(doc.id);
-                console.log(docData.postingTime.seconds);
                 return <div style = {{width: "fit-content", marginRight: 50, marginLeft: 30}}>
                     <PostContent 
                     postId = {doc.id}

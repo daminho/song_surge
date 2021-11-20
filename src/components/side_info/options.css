@@ -3,6 +3,11 @@
     width: 428px;
 }
 
+.option_style {
+    width: 60%;
+    position: fixed;
+}
+
 .writepostbox {
     position: relative;
     width: 100%;
@@ -33,10 +38,11 @@
 .trendingbox {
     position: fixed;
     position: relative;
-    width: 400px;
+    width: 40%x;
     padding: 24px 28px;
     margin-bottom: 20px;
-    background: #FFFFFF;
+    /* background: #FFFFFF; */
+    background-color: blanchedalmond;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
 }

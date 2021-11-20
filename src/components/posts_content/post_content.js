@@ -1,10 +1,12 @@
 import "./post_content.css"
 import { React, useEffect, useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
+import Link from '@material-ui/core/Link';
 import { rtdb, db } from "../../firebase.js"
-import { doc, getDoc, updateDoc } from "@firebase/firestore";
+import { doc, getDoc, updateDoc, onSnapshot, addDoc, collection } from "@firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import { update, child, ref, push, onValue } from "@firebase/database";
+import { update, child, ref, push, onValue, onChildAdded, query, get } from "@firebase/database";
+import UserComment from "../post_comment/post_comment";
 /**
  * @author Rvvse
  * @param {{
@@ -53,25 +55,31 @@ function PostContent(props) {
         userId,
         postId,
         userName,
+        comment,
         isPreview = false,
     } = props
     
 
     const isQuestion = link == undefined;
-    const [curComment, setComment] = useState("");
+    const [curComment, setCurComment] = useState("");
     const [isChosen, setChose] = useState(false);
+    const [numShownComment, setNumComment] = useState(0);
 
     const { currentUser } = useAuth();
     const [user, setUser] = useState({});
-    const [postComment, setPostComment] = useState([]);
-    const [showComment, setShowComment] = useState(false);
 
+    const [postComment, setPostComment] = useState([]);
+    const [postCommentUI, setPostCommentUI] = useState([]);
+    const [showComment, setShowComment] = useState(false);
     const commentRef = useRef();
 
     const postRef = postId != undefined ? doc(db, isQuestion ?  "questions" : "posts", postId) : "";
     const userRef = doc(db, "users", currentUser.uid);
 
+    const cmtRef = ref(rtdb, 'comments/' + postId);
+    const postCmtPath = ((isQuestion ? "questions" : "posts") + "/" + postId + "/comments");
 
+    
     var date = new Date(postingTime);
     date = date.toString();
     var hour = date.slice(15,21);
@@ -85,61 +93,86 @@ function PostContent(props) {
         }
         const getPost = postRef != "" ? async () => {
             const data = await getDoc(postRef);
-            // setPostComment(data.data().comment)
+            setPostComment(data.data().comment);
         } : () => {}
+        const postCmtRef = collection(db, postCmtPath);
+        onSnapshot(postCmtRef, (snapshot) => {
+            const lstCmt = snapshot.docs.map((doc) => {
+                return {id: doc.id, data: doc.data()};
+            });
+            lstCmt.sort((a,b) => {
+                if(a.data.createdAt > b.data.createdAt) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            const lstCmtUI = lstCmt.map((data) => {
+                return <UserComment
+                    userName = {data.data.author}
+                    content = {data.data.content}
+                    createdAt = {data.data.createdAt}
+                    isQuestion = {isQuestion}
+                    cmtId = {data.id}
+                    postId = {postId}
+                />
+            });
+            setPostCommentUI(lstCmtUI);
+        });
         getPost();
         getUser();
     }, [])
+
+    function onClickComment(isShow) {
+        if(isShow == false) {
+            setShowComment(false);
+            setNumComment(0);
+            return;
+        } 
+        setShowComment(true);
+        console.log(Math.min(numShownComment + 10, postCommentUI.length));
+        setNumComment(Math.min(numShownComment + 10, postCommentUI.length));
+    }
 
     function resetComment() {
         if(isChosen == false) {
             console.log("resetComment");
             setChose(true);
-            setComment("");
+            setCurComment("");
         }
     }
 
-    function updateCommnet(event) {
-        var x = event.target.value;
-        setComment(x);
+    function updateComment(event) {
+        setCurComment(event.target.value);
     }
 
     async function keyDown(event) {
-        if(event.keyCode == 13){
+        if(event.keyCode == 13) {
+            console.log("enter");
             event.preventDefault();
+            if(curComment == ""){
+                return;
+            }
             const commentData = {
                 author: user.username,
                 content: curComment,
+                createdAt: Date.now(),
+                type: "text",
             }
+
             commentRef.current.value = "";
             resetComment();
-            console.log(commentData);
-            const newCommentKey = push(child(ref(rtdb), 'comments')).key;
-            const postRef = doc(db, "posts", postId);
-            var newComment = postComment;
-            newComment.push(newCommentKey);
-            setPostComment(newComment);
 
-            await updateDoc(postRef, {
-                comment: newComment
-            })
-
-            const updates = {};
-            updates['/comments/' + newCommentKey] = commentData;
-            return update(ref(rtdb), updates)
+            
+            const postCmtRef = collection(db, postCmtPath);
+            const newCmtRef =  await addDoc(postCmtRef, commentData);
             
         }
     }
 
-    function onClickComment (newVal) {
-        if(newVal == true) {
-            const commentRef = ref(rtdb, 'comments/');
-            onValue(commentRef, (snapshot) => {
-                const data = snapshot.val();
-            });
-        }
-        setShowComment(newVal)
-    } 
+
+
+
 
 	var vidId = "";
 	if(link != undefined) {
@@ -168,6 +201,7 @@ function PostContent(props) {
                     <button className="hash_tag" key={item}>{"#" + item}</button>
                 ))}
             </div>
+
             {
                 isPreview != false ? <div/>
                 : <div style = {{marginTop: 10}}>
@@ -176,19 +210,29 @@ function PostContent(props) {
                             <Form.Control
                                 placeholder = "add your comment to the post"
                                 ref = {commentRef}
-                                onSelect = {(event) => {resetComment()}}
+                                onSelect = {() => {resetComment()}}
                                 onKeyDown = {(event) => {keyDown(event)}}
-                                onChange = {(event) => {updateCommnet(event)}}
+                                onChange = {(event) => {updateComment(event)}}
                             />
                         </div>
                     </div>
+                    <div style = {{marginTop: 10}}>
                     {
-                        showComment == false
-                        ? <a style = {{textDecoration: "underline"}} onClick = {(event) => {onClickComment(true)}}>Show comments</a>
-                        : <div>
-                            <a style = {{textDecoration: "underline"}} onClick = {(event) => {onClickComment(false)}}>Show less</a>
-                        </div>
+                        postCommentUI.length > 0
+                        ? (numShownComment == 0 && showComment == false)
+                            ? <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline"}} onClick = {(event) => {
+                                event.preventDefault();
+                                onClickComment(true)}}>Show comments</Link>
+                            : <div>
+                                {postCommentUI.slice(0, numShownComment)}
+                                <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline"}} onClick = {(event) => {
+                                    event.preventDefault();
+                                    onClickComment(numShownComment == postCommentUI.length ? false : true)
+                                }}>{numShownComment == postCommentUI.length ? "Show Less" : "View more"}</Link>
+                            </div> 
+                        : <div/>
                     }
+                    </div>
                 </div>
             }
         </div>
@@ -196,3 +240,4 @@ function PostContent(props) {
 }
 
 export default PostContent
+

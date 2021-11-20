@@ -64,3 +64,9 @@
     position: relative;
     width: 100%;
 }
+
+.clickable_text {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+}

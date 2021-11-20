@@ -19,7 +19,7 @@ function Option(props) {
     
     return (
         <div class = "options">
-            <div style = {{width: 400, position: "fixed"}}>
+            <div className = "option_style">
                 <Button className = "write_button" onClick = {(event) => {writePost()}}>Write a Post</Button>
                 <div class = "trendingbox">
                     <div class ="trendingtoday">{'Trending today'}</div>

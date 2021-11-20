@@ -1,0 +1,7 @@
+.comment_body {
+    background-color: rgba(221, 213, 240, 0.2);
+    width: fit-content;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 15px;
+}
