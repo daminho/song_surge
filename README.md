@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+(the actual final code are implemented in 'writing_feature' branch)
+# Project Summary
+Many people listen to music alone during the pandemic, but we strongly believe that interacting with other music lovers could properly enrich their music experience.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+We created a platform that only focuses on music, which provides a variety of ways to help users express their feelings and understand others.
 
-## Available Scripts
+SongSurge is divided into two independent parts (share & search) so that both users with different purposes can immerse themselves in the emotional resonance with others.
+# Instruction
+Entering the platform users will face the log in page. Users can click sign up to sign up for new account.
 
-In the project directory, you can run:
+![](https://i.imgur.com/iR4K0Tp.png)
 
-### `yarn start`
+After signing up the account information will be added to the server, and the users will be able to log in. Then a feed of SongSurgeShare will appear containing the posts other users had uploaded. This feed is the same for all users. On the right, users can check the hashtags and the moods, which allows users to filter their feed to contain only songs from those hashtag. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![](https://i.imgur.com/U3BbzaE.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Users can share their own songs clicking the "Write a Post" button above the trending hashtags and moods. SongSurge asks for a link of the song to share, and after adding the link screen below appears. 
 
-### `yarn test`
+![](https://i.imgur.com/hA3wkX0.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Users can write anything about the song, including what they like about it or any episodes related to the song. Below are the hashtags, background color, and the mood users can freely add or choose. A preview of the post is shown at the right. Clicking the "Write Post" button the post is added on the feed, as in the image below. 
 
-### `yarn build`
+![](https://i.imgur.com/4MKkDSk.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Users can also post questions asking for a song that matches the explanation, and other users can comment recommending the song the post-writer seems to seek for. Hashtags and moods can be used to filter out the atmosphere of the song.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![](https://i.imgur.com/v78ByZG.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+Users will also be able to add comments to each of the posts. In the comments, users can use emojis, pictures, and gifs to express more on their own ideas about the post or the song itself. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+SongSurgeSearch - which can be switched clicking the word "Search" placed at the upper right - is implemented in a similar manner. 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# URL
+Prototype: https://songsurgehci.herokuapp.com/
+Git Repository: https://github.com/daminho/song_surge
+# Libraries and Framework
+- joeattardi/emoji-button
+- react-images-uploading
+- react-bootstrap
+- giphy/js-fetch-api
