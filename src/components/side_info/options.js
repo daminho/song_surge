@@ -10,7 +10,7 @@ function Option(props) {
     const {
         search = false,
         hashTags = [],
-        moods = ["HappySunny", "Blue",  "Cucumber", "FireRock"],
+        moods = ["HappySunny", "Blue",  "Cucumber", "FireRock", "NervousRobot", "CalmRelax"],
         onClickMoody,
         onClickHashtag,
     } = props

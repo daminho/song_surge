@@ -58,7 +58,7 @@ function SignUp() {
                   <Form.Label style = {{fontWeight: "bold", marginBottom: 0}}>Password</Form.Label>
                 <Form.Control type = "password" placeholder = "Password" onChange = {(event) => {
                   setLoginPassword(event.target.value)
-                }}></Form.Control>
+                }} onKeyDown = {(event) => {if(event.keyCode == 13) {logIn(event)}}}></Form.Control>
               </Form.Group>
 
               <Button onClick = {(event) => {logIn(event)}} style = {{marginTop: 20, marginBottom: 10}}>

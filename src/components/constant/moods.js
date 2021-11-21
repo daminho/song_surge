@@ -36,7 +36,7 @@ export const MOODY = {
         moodValue: "NervousRobot",
     },
     "CalmRelax" : {
-        moodColor: "#ffe1e1",
+        moodColor: "#5EA9BE",
         moodSymbol: "😌",
         moodContent: "calm & relaxed",
         moodValue: "CalmRelax",
