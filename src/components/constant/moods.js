@@ -20,7 +20,7 @@ export const MOODY = {
     "HappySunny": {
         moodColor: '#f9f1d1',
         moodSymbol: '🌞',
-        moodContent: 'Feeling happy like a sunny day',
+        moodContent: 'Happy sunny day',
         moodValue: 'HappySunny'
     },
     "FireRock" : {

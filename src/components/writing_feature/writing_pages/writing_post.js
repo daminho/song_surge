@@ -152,8 +152,9 @@ function WritingPost(props) {
                         backgroundColor = {chosingColor}
                         moodyPart = {MOODY[moody]}
                         hashTags = {hashTags}
-                        userId = {user.username}
+                        userName = {user.username}
                         content = {content}
+                        isPreview = {true}
                         />
                     </div>
                 </div>

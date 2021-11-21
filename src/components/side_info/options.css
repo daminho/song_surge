@@ -4,8 +4,19 @@
 }
 
 .option_style {
-    width: 60%;
     position: fixed;
+}
+
+.option_box {
+    position: fixed;
+    position: relative;
+    width: 300px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    margin-top: 100px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
 }
 
 .writepostbox {
@@ -38,11 +49,10 @@
 .trendingbox {
     position: fixed;
     position: relative;
-    width: 40%x;
+    width: 300px;
     padding: 24px 28px;
     margin-bottom: 20px;
     /* background: #FFFFFF; */
-    background-color: blanchedalmond;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
 }
@@ -68,10 +78,9 @@
 .moodybox {
     position: fixed;
     position: relative;
-    width: 400px;
+    width: 300px;
     padding: 24px 28px;
     margin-bottom: 20px;
-
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;

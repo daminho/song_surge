@@ -1,4 +1,4 @@
-.content {
+.feed_content {
     display: flex;
     flex-direction: row;
     width: fit-content;
@@ -6,3 +6,19 @@
     margin: 0 auto;
 }
 /* style = {{display: "flex", flexDirection: "row", backgroundColor: "blue", width: "fit-content"}} */
+
+.filter_layout {
+    /* background-color: blanchedalmond; */
+    width: 30%;
+}
+
+.post_layout {
+    /* background-color: blue; */
+    width: 40%;
+}
+
+.option_layout {
+    /* background-color: blueviolet; */
+    text-align: right;
+}
+

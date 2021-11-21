@@ -26,8 +26,8 @@ function Filter(props) {
         <div class = "options">
             <div style = {{ position: "fixed", marginLeft: 20}}>
                 <div class = "filterbox">
-                    <Row style = {{marginBottom: 20, heightL: 25}}>
-                        <Col xs = {9}><div class = "moodytxt">{'Filter'}</div></Col>
+                    <Row style = {{marginBottom: 20, height: 25}}>
+                        <Col xs = {8}><div class = "moodytxt">{'Filter'}</div></Col>
                         {hasFilter ? <Col><button className = "clear_filter" onClick = {(event) => {clearFilter()}}>Clear</button></Col> : <div/>}
                     </Row>
                     {mood != undefined

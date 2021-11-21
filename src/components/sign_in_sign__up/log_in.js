@@ -44,8 +44,8 @@ function SignUp() {
         <div>
           <div className = "log_in_container">
             <Form>
-              <Form.Group>
-                <Form.Label>Email</Form.Label>
+                <Form.Group style = {{marginBottom: 10}}>
+                  <Form.Label style = {{fontWeight: "bold", marginBottom: 0}}>Email</Form.Label>
                 <Form.Control type = "text" placeholder = "Enter your email here" onChange = {(event) => {
                   setLoginEmail(event.target.value)
                 }} required isInvalid = {errorType == 1}></Form.Control>
@@ -54,8 +54,8 @@ function SignUp() {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
+              <Form.Group style = {{marginBottom: 10}}>
+                  <Form.Label style = {{fontWeight: "bold", marginBottom: 0}}>Password</Form.Label>
                 <Form.Control type = "password" placeholder = "Password" onChange = {(event) => {
                   setLoginPassword(event.target.value)
                 }}></Form.Control>

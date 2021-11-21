@@ -5,7 +5,22 @@ import { Form } from 'react-bootstrap';
 import { useAuth } from "../../context/AuthContext.js";
 import { getDoc, addDoc, collection, doc, docs, onSnapshot } from "@firebase/firestore";
 import { db } from "../../firebase.js"; 
+import MusicLink from "../comment/link";
 
+function getVidID(link) {
+    var vidId = "";
+    if(link[13]=='.'){
+        for(var index = 17;index<17+11;index++){
+            vidId += link[index]
+        }
+    }
+    else{
+        for(var index = 32; index<32+11; index++){
+            vidId += link[index];
+        }
+    }
+    return vidId;
+}
 
 
 export default function UserComment(props) {
@@ -17,7 +32,6 @@ export default function UserComment(props) {
         isReply = false,
         postId,
         createdAt,
-        commentId,
         isQuestion,
         cmtId,
     } = props
@@ -30,11 +44,17 @@ export default function UserComment(props) {
     const [isShowReply, setShowReply] = useState(false);
     const [curComment, setCurComment] = useState("");
     const [isChosen, setChose] = useState(false);
+    const [stateChange, setStateChange] = useState(false);
     const commentRef = useRef();
 
     const postRef = postId != undefined ? doc(db, isQuestion ?  "questions" : "posts", postId) : "";
     const userRef = doc(db, "users", currentUser.uid);
     const replyCmtPath =  (isQuestion ? "questions" : "posts") + "/" + postId + "/comments/" + cmtId + "/replies";
+
+    function changeState() {
+        setStateChange(true);
+    }
+
 
     useEffect(() => {
         const getUser = async () => {
@@ -47,10 +67,10 @@ export default function UserComment(props) {
                 return doc.data();
             });
             lstCmt.sort((a,b) => {
-                if(a.createdAt > b.createdAt) {
-                    return 1;
-                } else {
+                if(a.createdAt < b.createdAt) {
                     return -1;
+                } else {
+                    return 1;
                 }
             });
             const lstCmtUI = lstCmt.map((data) => {
@@ -59,17 +79,18 @@ export default function UserComment(props) {
                     content = {data.content}
                     createdAt = {data.createdAt}
                     isReply = {true}
+                    type = {data.type}
                 />
             });
             setReplyUI(lstCmtUI);
+            setStateChange(false);
         });
         getUser();
-    }, [])
+    }, [stateChange])
 
 
     function resetComment() {
         if(isChosen == false) {
-            console.log("resetComment");
             setChose(true);
             setCurComment("");
         }
@@ -81,7 +102,6 @@ export default function UserComment(props) {
 
     async function keyDown(event) {
         if(event.keyCode == 13) {
-            console.log("enter", curComment);
             event.preventDefault();
             if(curComment == ""){
                 return;
@@ -100,7 +120,6 @@ export default function UserComment(props) {
             setReplyOnly(false);
             setShowReply(true);
 
-            console.log(replyCmtPath);
             const postCmtRef = collection(db, replyCmtPath);
             const newCmtRef =  await addDoc(postCmtRef, commentData);
             
@@ -115,35 +134,45 @@ export default function UserComment(props) {
     var strDate = date.slice(3,16);
     strDate = hour + "," + strDate;
     
-    
+
+    var cmtContent = content;
+    var vidId = "";
+	if(type == "link") {
+        vidId = getVidID(content);
+        vidId = "https://www.youtube.com/embed/" + vidId
+        cmtContent = <iframe width="444" height="250" src={vidId} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>;
+    }
 
     return(
         <div>
             <div className = "comment_body">
                 <div style = {{fontSize: 12, fontWeight: "bold"}}>{userName}</div>
-                <div style = {{fontSize: 14}}>{content}</div>
+                <div style = {{fontSize: 14}}>{cmtContent}</div>
             </div>
             <div style = {{display: "flex", flexDirection: "row", fontSize: 12, paddingLeft: 10, paddingTop: 2}}>
                 {isReply ? <div/> : 
                 <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline", fontWeight: "bold"}}
-                    onClick = {(event) => {setReplyOnly(true)}}
+                    onClick = {(event) => {if(isShowReply == false) {setReplyOnly(true)}}}
                 >Reply</Link>} {(isReply ? "" : ", ") + strDate}
             </div>
             {
                 (isReply == false)
-                ? <div style = {{paddingLeft: 30}}>
+                ? <div style = {{paddingLeft: 30, flexWrap: "nowrap"}}>
                     {
                         (isShowReply || isReplyOnly)
                         ? <div>
                             {isReplyOnly ? <div/> : replyUI}
-                            <div className = "comment_text_field" style = {{marginTop: 5}}>
-                                <Form.Control
-                                    placeholder = "replying..."
-                                    ref = {commentRef}
-                                    onSelect = {() => {resetComment()}}
-                                    onKeyDown = {(event) => {keyDown(event)}}
-                                    onChange = {(event) => {updateComment(event)}}
-                                />
+                            <div style = {{marginTop: 5}}>
+                                <div style = {{display: "flex", flexDirection: "row"}}>
+                                    <Form.Control
+                                        placeholder = "replying..."
+                                        ref = {commentRef}
+                                        onSelect = {() => {resetComment()}}
+                                        onKeyDown = {(event) => {keyDown(event)}}
+                                        onChange = {(event) => {updateComment(event)}}
+                                    />
+                                    <MusicLink isQuestion = {isQuestion} postId = {postId} commentId = {cmtId} onEnter = {changeState}></MusicLink>
+                                </div>
                             </div>
                         </div>
                         : (replyUI.length != 0) ? <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline", fontWeight: "bold", fontSize: 12}}

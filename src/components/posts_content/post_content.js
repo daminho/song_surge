@@ -9,6 +9,7 @@ import { update, child, ref, push, onValue, onChildAdded, query, get } from "@fi
 import UserComment from "../post_comment/post_comment";
 import { HashTag } from '../constant/hash_tag_ui';
 import { Moody } from '../constant/moody_ui';
+import MusicLink from "../comment/link";
 /**
  * @author Rvvse
  * @param {{
@@ -50,7 +51,7 @@ function PostContent(props) {
     const {
         link,
         backgroundColor = '',
-        postingTime = '',
+        postingTime ,
         content,
         hashTags = [],
         moodyPart,
@@ -84,7 +85,7 @@ function PostContent(props) {
     const postCmtPath = ((isQuestion ? "questions" : "posts") + "/" + postId + "/comments");
 
     
-    var date = new Date(postingTime);
+    var date = postingTime != undefined ? new Date(postingTime) : new Date(Date.now());
     date = date.toString();
     var hour = date.slice(15,21);
     var strDate = date.slice(3,16);
@@ -97,7 +98,6 @@ function PostContent(props) {
         }
         const getPost = postRef != "" ? async () => {
             const data = await getDoc(postRef);
-            setPostComment(data.data().comment);
         } : () => {}
         const postCmtRef = collection(db, postCmtPath);
         onSnapshot(postCmtRef, (snapshot) => {
@@ -119,6 +119,7 @@ function PostContent(props) {
                     isQuestion = {isQuestion}
                     cmtId = {data.id}
                     postId = {postId}
+                    type = {data.data.type}
                 />
             });
             setPostCommentUI(lstCmtUI);
@@ -157,6 +158,9 @@ function PostContent(props) {
             if(curComment == ""){
                 return;
             }
+
+            setNumComment(postCommentUI.length + 1);
+
             const commentData = {
                 author: user.username,
                 content: curComment,
@@ -173,8 +177,6 @@ function PostContent(props) {
             
         }
     }
-
-
 
 
 
@@ -206,18 +208,7 @@ function PostContent(props) {
             {
                 isPreview != false ? <div/>
                 : <div style = {{marginTop: 10}}>
-                    <div style = {{display: "flex", flexDirection: "row"}}>
-                        <div className = "comment_text_field">
-                            <Form.Control
-                                placeholder = "add your comment to the post"
-                                ref = {commentRef}
-                                onSelect = {() => {resetComment()}}
-                                onKeyDown = {(event) => {keyDown(event)}}
-                                onChange = {(event) => {updateComment(event)}}
-                            />
-                        </div>
-                    </div>
-                    <div style = {{marginTop: 10}}>
+                    <div style = {{marginBottom: 10}}>
                     {
                         postCommentUI.length > 0
                         ? (numShownComment == 0 && showComment == false)
@@ -234,6 +225,18 @@ function PostContent(props) {
                         : <div/>
                     }
                     </div>
+                    <div style = {{display: "flex", flexDirection: "row"}}>
+                        <div className = "comment_text_field">
+                            <Form.Control
+                                placeholder = "add your comment to the post"
+                                ref = {commentRef}
+                                onSelect = {() => {resetComment()}}
+                                onKeyDown = {(event) => {keyDown(event)}}
+                                onChange = {(event) => {updateComment(event)}}
+                            />
+                        </div>
+                        <MusicLink isQuestion = {isQuestion} postId = {postId}></MusicLink>
+                    </div>
                 </div>
             }
         </div>
@@ -241,4 +244,18 @@ function PostContent(props) {
 }
 
 export default PostContent
+
+
+export function EmptyPostWithMessage(props) {
+
+    const {
+        message
+    } = props;
+
+    return (
+        <div className = "post_content">
+            <div style = {{fontWeight: "bold", fontSize: 16}}>{message}</div>
+        </div>
+    )
+}
 

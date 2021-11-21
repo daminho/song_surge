@@ -5,7 +5,7 @@
     padding: 20px;
     box-sizing: border-box;
     box-shadow: 0 0 10px #e1e1e1;
-    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .post_header {
     margin-bottom: 16px;
@@ -17,6 +17,7 @@
 }
 .user_id {
     font-size: 1.1em;
+    font-weight: bold;
     color: #333;
     margin-bottom: 6px;
 }
@@ -61,6 +62,7 @@
 
 .comment_text_field {
     position: relative;
+    margin-right: 10px;
     width: 100%;
 }
 

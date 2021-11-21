@@ -59,8 +59,8 @@ function SignIn() {
           <div>
             <div className = "log_in_container"></div>
               <Form>
-                <Form.Group>
-                  <Form.Label>Email</Form.Label>
+                <Form.Group style = {{marginBottom: 10}}>
+                  <Form.Label style = {{fontWeight: "bold", marginBottom: 0}}>Email</Form.Label>
                   <Form.Control type = "text" placeholder = "Enter your email here" onChange = {(event) => {
                     setRegisterEmail(event.target.value)
                   }} required isInvalid = {errorType == 1}></Form.Control>
@@ -69,22 +69,22 @@ function SignIn() {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group>
-                  <Form.Label>Username</Form.Label>
+                <Form.Group style = {{marginBottom: 10}}>
+                  <Form.Label style = {{fontWeight: "bold", marginBottom: 0}}>Username</Form.Label>
                   <Form.Control type = "text" placeholder = "How can we call you" onChange = {(event) => {
                     setRegisterUserName(event.target.value)
                   }}></Form.Control>
                 </Form.Group>
 
-                <Form.Group>
-                  <Form.Label>Password</Form.Label>
+                <Form.Group style = {{marginBottom: 10}}>
+                  <Form.Label style = {{fontWeight: "bold", marginBottom: 0}}>Password</Form.Label>
                   <Form.Control type = "password" placeholder = "Password" onChange = {(event) => {
                     setRegisterPassword(event.target.value)
                   }}></Form.Control>
                 </Form.Group>
 
-                <Form.Group>
-                  <Form.Label>Password Confirmation</Form.Label>
+                <Form.Group style = {{marginBottom: 10}}>
+                  <Form.Label style = {{fontWeight: "bold", marginBottom: 0}}>Password Confirmation</Form.Label>
                   <Form.Control type = "password" placeholder = "Confirm Password" onChange = {(event) => {
                     setConfirmPassword(event.target.value)
                   }} required isInvalid = {errorType == 2}></Form.Control>
