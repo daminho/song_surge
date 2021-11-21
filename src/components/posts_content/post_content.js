@@ -7,6 +7,8 @@ import { doc, getDoc, updateDoc, onSnapshot, addDoc, collection } from "@firebas
 import { useAuth } from "../../context/AuthContext";
 import { update, child, ref, push, onValue, onChildAdded, query, get } from "@firebase/database";
 import UserComment from "../post_comment/post_comment";
+import { HashTag } from '../constant/hash_tag_ui';
+import { Moody } from '../constant/moody_ui';
 /**
  * @author Rvvse
  * @param {{
@@ -57,6 +59,8 @@ function PostContent(props) {
         userName,
         comment,
         isPreview = false,
+        onClickMoody,
+        onClickHashtag,
     } = props
     
 
@@ -192,13 +196,10 @@ function PostContent(props) {
             <div className="status">
                 {
                     moodyPart == undefined ? <div></div>
-                    : <button className="moody_part" style = {{backgroundColor: moodyPart == null ? "transparent" : moodyPart.moodColor}}>
-                        <div className="symbol">{moodyPart?.moodSymbol}</div>
-                        <div className="string">{moodyPart?.moodContent}</div>
-                    </button>
+                    : <Moody moodyPart = {moodyPart} onClick = {onClickMoody}/>
                 }
                 {hashTags.map(item => (
-                    <button className="hash_tag" key={item}>{"#" + item}</button>
+                    <HashTag hashtag = {item} onClick = {onClickHashtag}/>
                 ))}
             </div>
 

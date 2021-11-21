@@ -16,13 +16,25 @@ export default function SongSurgeSearch(props) {
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
     const postsRef = collection(db, "questions");
+    const [moodyFilter, setMoodyFilter] = useState();
+    const [hashtagFilter, setHashtagFilter] = useState();
     useEffect(() => {
         const getPosts = async () => {
             const data = await getDocs(postsRef);
             const listPost = data.docs.map((doc) => {
                 const docData = doc.data();
                 console.log(docData.moody);
-                return  <div style = {{width: "fit-content", marginRight: 50, marginLeft: 30}}>
+
+                var okHashtag = hashtagFilter == undefined;
+                for (var i = 0; i < docData.hashTags.length; i++) {
+                    if(docData.hashTags[i] == hashtagFilter) {
+                        okHashtag = true;
+                        break;
+                    }
+                }
+                var okMoody = moodyFilter == undefined;
+                if(okMoody == false && moodyFilter == docData.moody) okMoody = true;
+                return (okHashtag && okMoody) ? <div style = {{width: "fit-content", marginRight: 50, marginLeft: 30}}>
                     <PostContent 
                     postId = {doc.id}
                     link = {docData.songLink}
@@ -33,27 +45,30 @@ export default function SongSurgeSearch(props) {
                     userId = {docData.userId}
                     userName = {docData.userName}
                     postingTime = {docData.postingTime.seconds}
-                    isPost = {false}/>
-                </div>;
+                    isPost = {false}
+                    onClickHashtag = {setHashtagFilter}
+                    onClickMoody = {setMoodyFilter}/>
+                </div> : <div/>;
             });
             setPosts(listPost);
         }
 
         getPosts();
-    }, [])
+    }, [moodyFilter, hashtagFilter])
 
     return (
         <div>
             <AppNavBar nameAppBar = "iSongSurgeSearch" isShare = {false}/>
             <div className = "content">
                 <div>
-                    <Filter/>
+                    <Filter mood = {moodyFilter} hashtag = {hashtagFilter}
+                    changeMoody = {setMoodyFilter} changeHashtag = {setHashtagFilter}/>
                 </div>
                 <div style = {{width: 680}}>
                     {posts}
                 </div>
                 <div>
-                    <Option/>
+                    <Option onClickMoody = {setMoodyFilter} search = {true}/>
                 </div>
             </div>
         </div>

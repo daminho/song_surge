@@ -11,24 +11,37 @@ function Filter(props) {
         search = false,
         hashtag,
         mood,
-        closeFunction = () => {},
+        changeMoody,
+        changeHashtag,
     } = props
     const navigate = useNavigate();
-    function writePost() {
-        search ? navigate("/writing_question") : navigate("/enter_song");
-    }
     const hasFilter = (hashtag != undefined || mood != undefined);
+
+    function clearFilter() {
+        changeMoody();
+        changeHashtag();
+    }
     
     return (
         <div class = "options">
             <div style = {{ position: "fixed", marginLeft: 20}}>
                 <div class = "filterbox">
-                    <Row style = {{marginBottom: 20}}>
-                        <Col xs = {10}><div class = "moodytxt">{'Filter'}</div></Col>
-                        {hasFilter ? <Col><button>X</button></Col> : <div/>}
+                    <Row style = {{marginBottom: 20, heightL: 25}}>
+                        <Col xs = {9}><div class = "moodytxt">{'Filter'}</div></Col>
+                        {hasFilter ? <Col><button className = "clear_filter" onClick = {(event) => {clearFilter()}}>Clear</button></Col> : <div/>}
                     </Row>
-                    {mood != undefined ? <Moody moodyPart = {MOODY[mood]}/> : <div/>}
-                    {hashtag != undefined ? <HashTag className = "hash_tag" hashtag = {hashtag}/> : <div/>}
+                    {mood != undefined
+                        ? <div>
+                            <div class = "moodytxt" style = {{ marginTop: 10}}>{'Moody'}</div>
+                            <Moody moodyPart = {MOODY[mood]}/>
+                        </div>
+                        : <div/>}
+                    {hashtag != undefined 
+                        ? <div>
+                            <div class = "moodytxt" style = {{ marginTop: 10}}>{'Hashtag'}</div>
+                            <HashTag className = "hash_tag" hashtag = {hashtag}/>
+                        </div>
+                        : <div/>}
                     {hasFilter ? <div/> : <div>There is no filter yet</div>}
                 </div>
             </div>

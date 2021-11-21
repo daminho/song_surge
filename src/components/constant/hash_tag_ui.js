@@ -3,9 +3,10 @@ import "../posts_content/post_content.css"
 
 export function HashTag(props) {
     const {
-        hashtag
+        hashtag,
+        onClick,
     } = props;
     return(
-        <div className="hash_tag" key={hashtag}>{"#" + hashtag}</div>
+        <button onClick = {(event) => {onClick(hashtag)}} className="hash_tag" key={hashtag}>{"#" + hashtag}</button>
     );
 }

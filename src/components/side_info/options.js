@@ -10,7 +10,9 @@ function Option(props) {
     const {
         search = false,
         hashTags = [],
-        moods = ["HappySunny", "Blue",  "Cucumber", "FireRock"]
+        moods = ["HappySunny", "Blue",  "Cucumber", "FireRock"],
+        onClickMoody,
+        onClickHashtag,
     } = props
     const navigate = useNavigate();
     function writePost() {
@@ -24,13 +26,13 @@ function Option(props) {
                 <div class = "trendingbox">
                     <div class ="trendingtoday">{'Trending today'}</div>
                     <div style = {{display: "flex", flexDirection: "row", flexWrap: "wrap"}}>
-                        {hashTags.map((item) => {return <HashTag className = "hash_tag" hashtag = {item}/>})}
+                        {hashTags.map((item) => {return <HashTag className = "hash_tag" hashtag = {item} onClick = {(event) => {onClickHashtag(item)}}/>})}
                     </div>
                 </div>
                 <div class = "moodybox">
                     <div class = "moodytxt">{'Moody'}</div>
                     <div>
-                        {moods.map((item) => {return <Moody moodyPart = {MOODY[item]}/>})}
+                        {moods.map((item) => {return <Moody moodyPart = {MOODY[item]} onClick = {(event) => {onClickMoody(item)}}/>})}
                     </div>
                     
                 </div>

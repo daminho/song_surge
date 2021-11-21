@@ -15,7 +15,6 @@ export default function UserComment(props) {
         content, 
         type,
         isReply = false,
-        replyId,
         postId,
         createdAt,
         commentId,
@@ -27,6 +26,7 @@ export default function UserComment(props) {
     const [user, setUser] = useState({});
 
     const [replyUI, setReplyUI] = useState([]);
+    const [isReplyOnly, setReplyOnly] = useState(false);
     const [isShowReply, setShowReply] = useState(false);
     const [curComment, setCurComment] = useState("");
     const [isChosen, setChose] = useState(false);
@@ -97,6 +97,9 @@ export default function UserComment(props) {
             commentRef.current.value = "";
             resetComment();
 
+            setReplyOnly(false);
+            setShowReply(true);
+
             console.log(replyCmtPath);
             const postCmtRef = collection(db, replyCmtPath);
             const newCmtRef =  await addDoc(postCmtRef, commentData);
@@ -123,22 +126,30 @@ export default function UserComment(props) {
             <div style = {{display: "flex", flexDirection: "row", fontSize: 12, paddingLeft: 10, paddingTop: 2}}>
                 {isReply ? <div/> : 
                 <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline", fontWeight: "bold"}}
-                    onClick = {(event) => {setShowReply(true)}}
+                    onClick = {(event) => {setReplyOnly(true)}}
                 >Reply</Link>} {(isReply ? "" : ", ") + strDate}
             </div>
             {
-                (isShowReply && isReply == false)
+                (isReply == false)
                 ? <div style = {{paddingLeft: 30}}>
-                    {replyUI}
-                    <div className = "comment_text_field" style = {{marginTop: 5}}>
-                        <Form.Control
-                            placeholder = "replying..."
-                            ref = {commentRef}
-                            onSelect = {() => {resetComment()}}
-                            onKeyDown = {(event) => {keyDown(event)}}
-                            onChange = {(event) => {updateComment(event)}}
-                        />
-                    </div>
+                    {
+                        (isShowReply || isReplyOnly)
+                        ? <div>
+                            {isReplyOnly ? <div/> : replyUI}
+                            <div className = "comment_text_field" style = {{marginTop: 5}}>
+                                <Form.Control
+                                    placeholder = "replying..."
+                                    ref = {commentRef}
+                                    onSelect = {() => {resetComment()}}
+                                    onKeyDown = {(event) => {keyDown(event)}}
+                                    onChange = {(event) => {updateComment(event)}}
+                                />
+                            </div>
+                        </div>
+                        : (replyUI.length != 0) ? <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline", fontWeight: "bold", fontSize: 12}}
+                        onClick = {(event) => {setShowReply(true)}}> {replyUI.length} {replyUI.length > 1 ? "replies" : "reply"}
+                        </Link> : <div/>
+                    }
                 </div> : <div/>
             }
         </div>

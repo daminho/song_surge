@@ -99,3 +99,19 @@
     position: relative;
     margin-bottom: 50px;
 }
+
+
+.clear_filter {
+    /* padding-left: 10px;
+    padding-right: 10px; */
+    padding: 5px 10px;
+    border-width: thin;
+    height: 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: ; */
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
