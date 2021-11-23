@@ -12,8 +12,8 @@ import PostContent from "../../posts_content/post_content.js";
 import { MOODY } from "../../constant/moods.js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext.js";
-import { auth, db} from "../../../firebase.js";
-import { getDocs, collection, doc, docs, getDoc, addDoc} from "firebase/firestore";
+import { db} from "../../../firebase.js";
+import { collection, doc, getDoc, addDoc} from "firebase/firestore";
 
 const lstMoody = [<option>Pick your mood</option>, ...listMoody];
 
@@ -22,7 +22,6 @@ function WritingQuestion(props) {
 
     
     const location = useLocation();
-    const state = location.state;
     const { currentUser } = useAuth();
     const [user, setUser] = useState({});
     const navigate = useNavigate();

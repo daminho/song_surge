@@ -1,11 +1,11 @@
 import "./post_content.css"
 import { React, useEffect, useState, useRef } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Link from '@material-ui/core/Link';
 import { rtdb, db } from "../../firebase.js"
-import { doc, getDoc, updateDoc, onSnapshot, addDoc, collection } from "@firebase/firestore";
+import { doc, getDoc, onSnapshot, addDoc, collection } from "@firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import { update, child, ref, push, onValue, onChildAdded, query, get } from "@firebase/database";
+import { ref } from "@firebase/database";
 import UserComment from "../post_comment/post_comment";
 import { HashTag } from '../constant/hash_tag_ui';
 import { Moody } from '../constant/moody_ui';

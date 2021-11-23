@@ -1,20 +1,16 @@
 import {React, useState, useEffect} from "react";
 import {useAuth} from "../../context/AuthContext.js";
-import {db, auth} from "../../firebase.js";
-import { useLocation, useNavigate } from "react-router-dom";
+import {db} from "../../firebase.js";
 import AppNavBar from "../constant/web_bar.js";
-import { getDocs, collection, doc, docs} from "@firebase/firestore";
+import { getDocs, collection} from "@firebase/firestore";
 import PostContent, { EmptyPostWithMessage } from "../posts_content/post_content.js";
 import Option from "../side_info/options.js";
 import "./song_surge_search.css";
 import { MOODY } from "../constant/moods.js";
 import Filter from "../side_info/filter.js";
-import { DoorBack } from "@mui/icons-material";
 
 export default function SongSurgeSearch(props) {
 
-    const {currentUser} = useAuth();
-    const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
     const postsRef = collection(db, "questions");
     const [moodyFilter, setMoodyFilter] = useState();
@@ -30,24 +26,25 @@ export default function SongSurgeSearch(props) {
                 if(a.postingTime > b.postingTime) return -1;
                 else return 1;
             });
+            const today = new Date();
             const listPost = listPostData.map((doc) => {
-                const docData = doc;
-                for (var i = 0; i < docData.hashTags.length; i++) {
-                    var cnt = cntHashtag[docData.hashTags[i]];
-                    cnt = cnt == undefined ? 0 : cnt;
-                    cntHashtag[docData.hashTags[i]]= cnt + 1;
-                }
+                const docData = doc[0];
+                var postingDate = new Date(docData.postingTime);
+                const isToday = (postingDate.getDate() == today.getDate() && postingDate.getMonth() == today.getMonth() && postingDate.getFullYear() == today.getFullYear());
 
                 var okHashtag = hashtagFilter == undefined;
                 for (var i = 0; i < docData.hashTags.length; i++) {
+                    if(isToday == true) {
+                        var cnt = cntHashtag[docData.hashTags[i]] == undefined ? 0 : cntHashtag[docData.hashTags[i]];
+                        cntHashtag[docData.hashTags[i]] = cnt + 1;
+                    }
                     if(docData.hashTags[i] == hashtagFilter) {
                         okHashtag = true;
-                        break;
                     }
                 }
                 var okMoody = moodyFilter == undefined;
                 if(okMoody == false && moodyFilter == docData.moody) okMoody = true;
-                ok += (okHashtag && okMoody) ? 1 : 0;
+                ok += (okMoody && okHashtag) ? 1 : 0;
                 return (okHashtag && okMoody) ? <div style = {{width: "fit-content", marginRight: 30, marginLeft: 30}}>
                     <PostContent 
                     postId = {doc[1]}
@@ -70,6 +67,7 @@ export default function SongSurgeSearch(props) {
                 </div>);
             }
             const tmp = Object.entries(cntHashtag).map(([key, value]) => {return {value, key}});
+            console.log(tmp);
             tmp.sort((a, b) => {
                 if(a.value > b.value) return -1;
                 else return 1;

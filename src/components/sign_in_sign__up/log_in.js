@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import { setDoc, doc, collection, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router";
-import { auth, db } from "../../firebase";
 import { useAuth } from '../../context/AuthContext';
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";

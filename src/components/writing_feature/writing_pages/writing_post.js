@@ -41,7 +41,6 @@ function WritingPost(props) {
     const [hashTags, setHashTags] = useState([]);
     const [moody, setMoody] = useState("");
     const [chosingColor, setChosingColor] = useState("#ffffff");
-    const hashtagRef = useRef(); 
 
     async function writeQuestion() {
         const postsRef = collection(db, "posts");
