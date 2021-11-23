@@ -27,16 +27,16 @@ export default function SongSurgeShare(props) {
             const data = await getDocs(postsRef);
             var ok = 0;
             var cntHashtag = {};
-            const listPostData = data.docs.map((doc) => doc.data());
+            const listPostData = data.docs.map((doc) => [doc.data(), doc.id]);
             listPostData.sort((a, b) => {
                 if(a.postingTime > b.postingTime) return -1;
                 else return 1;
             });
             const listPost = listPostData.map((doc) => {
-                const docData = doc;
+                const docData = doc[0];
                 console.log(docData.hashTags);
                 for (var i = 0; i < docData.hashTags.length; i++) {
-                    var cnt = cntHashtag.[docData.hashTags[i]];
+                    var cnt = cntHashtag[docData.hashTags[i]];
                     cnt = cnt == undefined ? 0 : cnt;
                     cntHashtag[docData.hashTags[i]]= cnt + 1;
                 }
@@ -53,7 +53,7 @@ export default function SongSurgeShare(props) {
                 ok += (okHashtag && okMoody) ? 1 : 0;
                 return (okHashtag && okMoody) ? <div style = {{width: "fit-content", marginRight: 30, marginLeft: 30}}>
                     <PostContent 
-                    postId = {doc.id}
+                    postId = {doc[1]}
                     link = {docData.songLink}
                     backgroundColor = {docData.color}
                     content = {docData.content}

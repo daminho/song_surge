@@ -17,6 +17,8 @@ import SongSurgeSearch from './components/search/song_surge_search';
 import { AuthProvider } from './context/AuthContext';
 import WritingQuestion from './components/writing_feature/writing_pages/writing_question';
 function App() {
+
+
   return (
     <Router>
       <AuthProvider>
