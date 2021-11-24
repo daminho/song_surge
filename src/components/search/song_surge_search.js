@@ -1,5 +1,4 @@
 import {React, useState, useEffect} from "react";
-import {useAuth} from "../../context/AuthContext.js";
 import {db} from "../../firebase.js";
 import AppNavBar from "../constant/web_bar.js";
 import { getDocs, collection} from "@firebase/firestore";
@@ -23,7 +22,7 @@ export default function SongSurgeSearch(props) {
             var cntHashtag = {};
             const listPostData = data.docs.map((doc) => [doc.data(), doc.id]);
             listPostData.sort((a, b) => {
-                if(a.postingTime > b.postingTime) return -1;
+                if(a[0].postingTime > b[0].postingTime) return -1;
                 else return 1;
             });
             const today = new Date();
@@ -67,7 +66,6 @@ export default function SongSurgeSearch(props) {
                 </div>);
             }
             const tmp = Object.entries(cntHashtag).map(([key, value]) => {return {value, key}});
-            console.log(tmp);
             tmp.sort((a, b) => {
                 if(a.value > b.value) return -1;
                 else return 1;

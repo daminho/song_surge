@@ -23,6 +23,16 @@ function getVidID(link) {
 }
 
 
+function isBrightColor(hexCode) {
+    var r = hexCode.slice(1, 3);
+    var g = hexCode.slice(3, 5);
+    var b = hexCode.slice(5, 7);
+    r = parseInt(r, 16);
+    g = parseInt(g, 16);
+    b = parseInt(b, 16);
+    return (((r * 299) + (g * 587) + (b * 114)) / 1000) > 155;
+}
+
 export default function UserComment(props) {
     const {
         userId,
@@ -34,6 +44,7 @@ export default function UserComment(props) {
         createdAt,
         isQuestion,
         cmtId,
+        backgroundColor
     } = props
 
     const { currentUser } = useAuth();
@@ -51,9 +62,14 @@ export default function UserComment(props) {
     const userRef = doc(db, "users", currentUser.uid);
     const replyCmtPath =  (isQuestion ? "questions" : "posts") + "/" + postId + "/comments/" + cmtId + "/replies";
 
+    const isBright = isBrightColor(backgroundColor);
+    const textColor = isBright ? "#121212" : '#E5E5E5';
+
+
     function changeState() {
         setStateChange(true);
     }
+
 
 
     useEffect(() => {
@@ -80,6 +96,7 @@ export default function UserComment(props) {
                     createdAt = {data.createdAt}
                     isReply = {true}
                     type = {data.type}
+                    backgroundColor = {backgroundColor}
                 />
             });
             setReplyUI(lstCmtUI);
@@ -146,12 +163,12 @@ export default function UserComment(props) {
     return(
         <div>
             <div className = "comment_body">
-                <div style = {{fontSize: 12, fontWeight: "bold"}}>{userName}</div>
-                <div style = {{fontSize: 14}}>{cmtContent}</div>
+                <div style = {{fontSize: 12, fontWeight: "bold", color: textColor}}>{userName}</div>
+                <div style = {{fontSize: 14, color: textColor}}>{cmtContent}</div>
             </div>
-            <div style = {{display: "flex", flexDirection: "row", fontSize: 12, paddingLeft: 10, paddingTop: 2}}>
+            <div style = {{display: "flex", flexDirection: "row", fontSize: 12, paddingLeft: 10, paddingTop: 2, color: textColor}}>
                 {isReply ? <div/> : 
-                <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline", fontWeight: "bold"}}
+                <Link style = {{color: textColor, cursor: "pointer", textDecoration: "underline", fontWeight: "bold"}}
                     onClick = {(event) => {if(isShowReply == false) {setReplyOnly(true)}}}
                 >Reply</Link>} {(isReply ? "" : ", ") + strDate}
             </div>
@@ -175,7 +192,7 @@ export default function UserComment(props) {
                                 </div>
                             </div>
                         </div>
-                        : (replyUI.length != 0) ? <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline", fontWeight: "bold", fontSize: 12}}
+                        : (replyUI.length != 0) ? <Link style = {{color: textColor, cursor: "pointer", textDecoration: "underline", fontWeight: "bold", fontSize: 12}}
                         onClick = {(event) => {setShowReply(true)}}> {replyUI.length} {replyUI.length > 1 ? "replies" : "reply"}
                         </Link> : <div/>
                     }

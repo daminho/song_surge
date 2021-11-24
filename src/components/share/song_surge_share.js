@@ -1,5 +1,4 @@
 import {React, useState, useEffect} from "react";
-import {useAuth} from "../../context/AuthContext.js";
 import {db} from "../../firebase.js";
 import AppNavBar from "../constant/web_bar.js";
 import { getDocs, collection} from "@firebase/firestore";
@@ -13,7 +12,6 @@ export default function SongSurgeShare(props) {
 
     const [posts, setPosts] = useState([]);
     const postsRef = collection(db, "posts");
-
     const [moodyFilter, setMoodyFilter] = useState();
     const [hashtagFilter, setHashtagFilter] = useState();
     const [trendToday, setTrendToday] = useState([]);
@@ -24,7 +22,7 @@ export default function SongSurgeShare(props) {
             var cntHashtag = [];
             const listPostData = data.docs.map((doc) => [doc.data(), doc.id]);
             listPostData.sort((a, b) => {
-                if(a.postingTime > b.postingTime) return -1;
+                if(a[0].postingTime > b[0].postingTime) return -1;
                 else return 1;
             });
 
@@ -46,7 +44,6 @@ export default function SongSurgeShare(props) {
                 }
                 var okMoody = moodyFilter == undefined;
                 if(okMoody == false && moodyFilter == docData.moody) okMoody = true;
-                console.log("moody and hashtag", okMoody, okHashtag);
                 ok += (okMoody && okHashtag) ? 1 : 0;
                 return (okHashtag && okMoody) ? <div style = {{width: "fit-content", marginRight: 30, marginLeft: 30}}>
                     <PostContent 
@@ -65,7 +62,6 @@ export default function SongSurgeShare(props) {
                 </div> : <div/>;
             });
             if(ok == 0) {
-                console.log("empty");
                 listPost.push(<div style = {{width: "fit-content", marginRight: 30, marginLeft: 30}}>
                     <EmptyPostWithMessage message = {"There is no post"}/>
                 </div>)

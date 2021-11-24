@@ -40,5 +40,11 @@ export const MOODY = {
         moodSymbol: "😌",
         moodContent: "Calm & relaxed",
         moodValue: "CalmRelax",
+    },
+    "Tear" : {
+        moodColor: "#c8d0e3",
+        moodSymbol: "😢",
+        moodContent: "Reduce to tear",
+        moodValue: "Tear",
     }
 }

@@ -18,12 +18,10 @@ function SignUp() {
 
   async function logIn(event) {
     event.preventDefault();
-    console.log("log_in");
     try {
       const user = await login(loginEmail, loginPassword);
       navigate("song_surge_share");
     } catch {
-      console.log("failed");
       setErrorMessage("Invalid email or password");
       setErrorType(1);
     }

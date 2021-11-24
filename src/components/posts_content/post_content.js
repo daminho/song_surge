@@ -2,10 +2,9 @@ import "./post_content.css"
 import { React, useEffect, useState, useRef } from "react";
 import { Form } from "react-bootstrap";
 import Link from '@material-ui/core/Link';
-import { rtdb, db } from "../../firebase.js"
+import { db } from "../../firebase.js"
 import { doc, getDoc, onSnapshot, addDoc, collection } from "@firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import { ref } from "@firebase/database";
 import UserComment from "../post_comment/post_comment";
 import { HashTag } from '../constant/hash_tag_ui';
 import { Moody } from '../constant/moody_ui';
@@ -42,8 +41,14 @@ function getVidID(link) {
 }
 
 
-export function writeComment() {
-
+function isBrightColor(hexCode) {
+    var r = hexCode.slice(1, 3);
+    var g = hexCode.slice(3, 5);
+    var b = hexCode.slice(5, 7);
+    r = parseInt(r, 16);
+    g = parseInt(g, 16);
+    b = parseInt(b, 16);
+    return (((r * 299) + (g * 587) + (b * 114)) / 1000) > 155;
 }
 
 
@@ -73,7 +78,6 @@ function PostContent(props) {
     const { currentUser } = useAuth();
     const [user, setUser] = useState({});
 
-    const [postComment, setPostComment] = useState([]);
     const [postCommentUI, setPostCommentUI] = useState([]);
     const [showComment, setShowComment] = useState(false);
     const commentRef = useRef();
@@ -81,7 +85,6 @@ function PostContent(props) {
     const postRef = postId != undefined ? doc(db, isQuestion ?  "questions" : "posts", postId) : "";
     const userRef = doc(db, "users", currentUser.uid);
 
-    const cmtRef = ref(rtdb, 'comments/' + postId);
     const postCmtPath = ((isQuestion ? "questions" : "posts") + "/" + postId + "/comments");
 
     
@@ -90,6 +93,9 @@ function PostContent(props) {
     var hour = date.slice(15,21);
     var strDate = date.slice(3,16);
     strDate = hour + "," + strDate;
+
+    const isBright = isBrightColor(backgroundColor);
+    const textColor = isBright ? "#121212" : '#E5E5E5';
 
     useEffect(() => {
         const getUser = async () => {
@@ -120,6 +126,7 @@ function PostContent(props) {
                     cmtId = {data.id}
                     postId = {postId}
                     type = {data.data.type}
+                    backgroundColor = {backgroundColor}
                 />
             });
             setPostCommentUI(lstCmtUI);
@@ -135,13 +142,11 @@ function PostContent(props) {
             return;
         } 
         setShowComment(true);
-        console.log(Math.min(numShownComment + 10, postCommentUI.length));
         setNumComment(Math.min(numShownComment + 10, postCommentUI.length));
     }
 
     function resetComment() {
         if(isChosen == false) {
-            console.log("resetComment");
             setChose(true);
             setCurComment("");
         }
@@ -153,7 +158,6 @@ function PostContent(props) {
 
     async function keyDown(event) {
         if(event.keyCode == 13) {
-            console.log("enter");
             event.preventDefault();
             if(curComment == ""){
                 return;
@@ -184,14 +188,17 @@ function PostContent(props) {
 	if(link != undefined) {
         vidId = getVidID(link);
     }
+
+    
+
     vidId = "https://www.youtube.com/embed/" + vidId
     return (
         <div className="post_content" style={{ backgroundColor: backgroundColor }}>
             <div className="post_header">
-                <div className="user_id">{userName}</div>
-                <div className="date">{strDate}</div>
+                <div className="user_id" style = {{color: textColor}}>{userName}</div>
+                <div className="date" style = {{color: textColor}}>{strDate}</div>
             </div>
-            <div className="post_text">{content}</div>
+            <div className="post_text" style = {{color: textColor}}>{content}</div>
             {
                 isQuestion == false ? <iframe width="560" height="315" src={vidId} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> : <div/>
             }
@@ -212,12 +219,12 @@ function PostContent(props) {
                     {
                         postCommentUI.length > 0
                         ? (numShownComment == 0 && showComment == false)
-                            ? <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline"}} onClick = {(event) => {
+                            ? <Link style = {{color: textColor, cursor: "pointer", textDecoration: "underline"}} onClick = {(event) => {
                                 event.preventDefault();
                                 onClickComment(true)}}>Show comments</Link>
                             : <div>
                                 {postCommentUI.slice(0, numShownComment)}
-                                <Link style = {{color: "black", cursor: "pointer", textDecoration: "underline"}} onClick = {(event) => {
+                                <Link style = {{color: textColor, cursor: "pointer", textDecoration: "underline"}} onClick = {(event) => {
                                     event.preventDefault();
                                     onClickComment(numShownComment == postCommentUI.length ? false : true)
                                 }}>{numShownComment == postCommentUI.length ? "Show Less" : "View more"}</Link>

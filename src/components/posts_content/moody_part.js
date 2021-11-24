@@ -6,7 +6,6 @@ export default function MoodyPart(props) {
         moodColor,
         content,
     } = props
-    console.log(moodColor);
     return (
         <div className="moody_part" style = {{backgroundColor: moodColor}}>
             <div className="symbol">{symbol}</div>

@@ -18,12 +18,10 @@
 .user_id {
     font-size: 1.1em;
     font-weight: bold;
-    color: #333;
     margin-bottom: 6px;
 }
 .date {
     font-size: 0.6em;
-    color: #999;
 }
 .status {
     display: flex;

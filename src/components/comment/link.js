@@ -42,12 +42,10 @@ function MusicLink(props) {
           createdAt: Date.now(),
       }
       const commentPath = (isQuestion ? "questions" : "posts") + "/" + postId + "/comments/" + (commentId != undefined ? commentId + "/replies" : "");
-      console.log(commentPath);
       const commentRef = collection(db, commentPath);
       const newCmtRef =  await addDoc(commentRef, commentData);
     } 
   }
-  console.log(musicLink);
 
   return (
     <OverlayTrigger trigger="click" placement="bottom" overlay={

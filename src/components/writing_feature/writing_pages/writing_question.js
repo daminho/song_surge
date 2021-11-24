@@ -30,7 +30,6 @@ function WritingQuestion(props) {
     useEffect(() => {
         const getUser = async () => {
             const data = await getDoc(userRef);
-            console.log(data.data());
             setUser(data.data());
         }
         getUser();
