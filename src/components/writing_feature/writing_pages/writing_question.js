@@ -64,7 +64,7 @@ function WritingQuestion(props) {
     return (
         <>
             <AppNavBar nameAppBar = "SongSurge"/>
-            <div style = {{display: "flex", flexDirection: "row"}}>
+            <div style = {{display: "flex", flexDirection: "row", marginTop: 100}}>
                 <div className = "writing_part">
                     <div style = {{maxWidth: 700, marginTop: 50, marginLeft: 100}}>
                         {/* Writing form -- Start */}
@@ -74,7 +74,11 @@ function WritingQuestion(props) {
                                 <Form.Control type = "text" as="textarea"
                                     placeholder = "Share your words with us" rows = {12} 
                                     onChange = {(event) => {setContent(event.target.value)}}
+                                    required isInvalid = {content.length == 0}
                                 ></Form.Control>
+                                <Form.Control.Feedback type = "invalid">
+                                    Content must not be empty
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className = "form_label">Hashtag</Form.Label>

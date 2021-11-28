@@ -16,7 +16,7 @@ function EnterSongPage() {
 
     return(
         <div>
-            <AppNavBar nameAppBar = "SongSurge"/>
+            <AppNavBar nameAppBar = "SongSurge" />
             <div style = {{textAlign: "center"}}>
                 <div style = {{fontSize: 50, textAlign: "center", marginTop: 100, marginBottom: 150}}>Share your song link here</div>
                 <div>

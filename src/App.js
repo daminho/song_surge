@@ -16,6 +16,7 @@ import SongSurgeShare from './components/share/song_surge_share';
 import SongSurgeSearch from './components/search/song_surge_search';
 import { AuthProvider } from './context/AuthContext';
 import WritingQuestion from './components/writing_feature/writing_pages/writing_question';
+import SinglePost from './components/posts_content/single_post_content';
 function App() {
 
 
@@ -32,6 +33,7 @@ function App() {
           <Route path = "/writing_question" element = {<WritingQuestion/>}></Route> 
           <Route path = "/song_surge_share" element = {<SongSurgeShare/>} />
           <Route path = "/song_surge_search" element = {<SongSurgeSearch/>} />
+          <Route path = "/view/:postId" element = {<SinglePost/>}/>
         </Routes>
       </AuthProvider>
     </Router>

@@ -1,10 +1,10 @@
 import "./post_content.css"
 import { React, useEffect, useState, useRef } from "react";
+import { db } from "../../firebase.js"
+import { doc, getDoc, onSnapshot, addDoc, collection, getDocs } from "@firebase/firestore";
+import { useAuth } from "../../context/AuthContext";
 import { Form } from "react-bootstrap";
 import Link from '@material-ui/core/Link';
-import { db } from "../../firebase.js"
-import { doc, getDoc, onSnapshot, addDoc, collection } from "@firebase/firestore";
-import { useAuth } from "../../context/AuthContext";
 import UserComment from "../post_comment/post_comment";
 import { HashTag } from '../constant/hash_tag_ui';
 import { Moody } from '../constant/moody_ui';
@@ -65,8 +65,9 @@ function PostContent(props) {
         userName,
         comment,
         isPreview = false,
-        onClickMoody,
-        onClickHashtag,
+        onClickMoody = () => {},
+        onClickHashtag = () => {},
+        onClickUserName = () => {},
     } = props
     
 
@@ -74,6 +75,8 @@ function PostContent(props) {
     const [curComment, setCurComment] = useState("");
     const [isChosen, setChose] = useState(false);
     const [numShownComment, setNumComment] = useState(0);
+    const [numGen, setNumGen] = useState(0);
+
 
     const { currentUser } = useAuth();
     const [user, setUser] = useState({});
@@ -97,6 +100,20 @@ function PostContent(props) {
     const isBright = isBrightColor(backgroundColor);
     const textColor = isBright ? "#121212" : '#E5E5E5';
 
+    function getCommentUI(data, isQuestion, backgroundColor, postId) {
+        return <UserComment
+            userName = {data.data.author}
+            content = {data.data.content}
+            createdAt = {data.data.createdAt}
+            isQuestion = {isQuestion}
+            cmtId = {data.id}
+            userId = {data.data.userId}
+            postId = {postId}
+            type = {data.data.type}
+            backgroundColor = {backgroundColor}
+        />
+    }
+
     useEffect(() => {
         const getUser = async () => {
             const data = await getDoc(userRef);
@@ -105,12 +122,16 @@ function PostContent(props) {
         const getPost = postRef != "" ? async () => {
             const data = await getDoc(postRef);
         } : () => {}
-        const postCmtRef = collection(db, postCmtPath);
-        onSnapshot(postCmtRef, (snapshot) => {
-            const lstCmt = snapshot.docs.map((doc) => {
-                return {id: doc.id, data: doc.data()};
+
+        const getPostComment = async () => {
+            const data = await getDocs(collection(db, "posts/" + postId + "/comments"));
+            var x = 0;
+            var lstCmt = [];
+            data.forEach((snapshot) => {
+                lstCmt.push({id: snapshot.id, data: snapshot.data()});
             });
             lstCmt.sort((a,b) => {
+
                 if(a.data.createdAt > b.data.createdAt) {
                     return 1;
                 } else {
@@ -118,22 +139,35 @@ function PostContent(props) {
                 }
             });
             const lstCmtUI = lstCmt.map((data) => {
-                return <UserComment
-                    userName = {data.data.author}
-                    content = {data.data.content}
-                    createdAt = {data.data.createdAt}
-                    isQuestion = {isQuestion}
-                    cmtId = {data.id}
-                    postId = {postId}
-                    type = {data.data.type}
-                    backgroundColor = {backgroundColor}
-                />
+                return getCommentUI(data, isQuestion, backgroundColor, postId);
+            });
+            setPostCommentUI(lstCmtUI);
+        }
+
+        const postCmtRef = collection(db, postCmtPath);
+        onSnapshot(postCmtRef, (snapshot) => {
+            const lstCmt = snapshot.docs.map((doc) => {
+                return {id: doc.id, data: doc.data()};
+            });
+            lstCmt.sort((a,b) => {
+
+                if(a.data.createdAt > b.data.createdAt) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            const lstCmtUI = lstCmt.map((data) => {
+                return getCommentUI(data, isQuestion, backgroundColor, postId);
             });
             setPostCommentUI(lstCmtUI);
         });
+        getPostComment();
         getPost();
         getUser();
-    }, [])
+        
+    }, [numGen])
+
 
     function onClickComment(isShow) {
         if(isShow == false) {
@@ -156,6 +190,24 @@ function PostContent(props) {
         setCurComment(event.target.value);
     }
 
+    async function sendNoti() {
+        if(userId == currentUser.uid) {
+            return;
+        }
+        const writerRef = collection(db, "users/" + userId + "/notifications");
+        const noti = {
+            authorId: currentUser.uid,
+            authorName: user.username,
+            type: "commented to your " + (isQuestion ? "question" : "post"),
+            postId: postId,
+            read: false,
+            isQuestion: isQuestion,
+            createdAt: Date.now()
+        }
+        const newNoti = await addDoc(writerRef, noti);
+    }
+
+
     async function keyDown(event) {
         if(event.keyCode == 13) {
             event.preventDefault();
@@ -167,6 +219,7 @@ function PostContent(props) {
 
             const commentData = {
                 author: user.username,
+                userId: currentUser.uid,
                 content: curComment,
                 createdAt: Date.now(),
                 type: "text",
@@ -178,6 +231,7 @@ function PostContent(props) {
             
             const postCmtRef = collection(db, postCmtPath);
             const newCmtRef =  await addDoc(postCmtRef, commentData);
+            sendNoti();
             
         }
     }
@@ -188,14 +242,11 @@ function PostContent(props) {
 	if(link != undefined) {
         vidId = getVidID(link);
     }
-
-    
-
     vidId = "https://www.youtube.com/embed/" + vidId
     return (
         <div className="post_content" style={{ backgroundColor: backgroundColor }}>
             <div className="post_header">
-                <div className="user_id" style = {{color: textColor}}>{userName}</div>
+                <Link className="user_id" style = {{color: textColor, textDecoration: "underline"}} onClick = {() => {onClickUserName(userName)}} >{userName}</Link>
                 <div className="date" style = {{color: textColor}}>{strDate}</div>
             </div>
             <div className="post_text" style = {{color: textColor}}>{content}</div>

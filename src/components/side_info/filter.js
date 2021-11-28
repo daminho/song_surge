@@ -11,25 +11,34 @@ function Filter(props) {
         search = false,
         hashtag,
         mood,
+        userName, 
         changeMoody,
         changeHashtag,
+        changeUserName,
     } = props
     const navigate = useNavigate();
-    const hasFilter = (hashtag != undefined || mood != undefined);
+    const hasFilter = (hashtag != undefined || mood != undefined || userName != undefined);
 
     function clearFilter() {
         changeMoody();
         changeHashtag();
+        changeUserName();
     }
     
     return (
         <div class = "options">
-            <div style = {{ position: "fixed", marginLeft: 20}}>
+            <div style = {{ position: "sticky", marginLeft: 20}}>
                 <div class = "filterbox">
                     <Row style = {{marginBottom: 20, height: 25}}>
                         <Col xs = {8}><div class = "moodytxt">{'Filter'}</div></Col>
                         {hasFilter ? <Col><button className = "clear_filter" onClick = {(event) => {clearFilter()}}>Clear</button></Col> : <div/>}
                     </Row>
+                    {userName != undefined
+                        ? <div>
+                            <div class = "moodytxt" style = {{ marginTop: 10}}>{'Writer'}</div>
+                            <div style = {{fontSize: 16}}>{userName}</div>
+                        </div>
+                        : <div/>}
                     {mood != undefined
                         ? <div>
                             <div class = "moodytxt" style = {{ marginTop: 10}}>{'Moody'}</div>

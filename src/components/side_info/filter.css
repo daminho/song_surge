@@ -60,7 +60,7 @@
 }
 
 .filterbox {
-    position: fixed;
+    position: sticky;
     position: relative;
     width: 300px;
     padding: 24px 28px;

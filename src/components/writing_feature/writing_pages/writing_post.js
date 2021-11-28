@@ -65,7 +65,7 @@ function WritingPost(props) {
     return (
         <>
             <AppNavBar nameAppBar = "SongSurge"/>
-            <div style = {{display: "flex", flexDirection: "row"}}>
+            <div style = {{display: "flex", flexDirection: "row", marginTop: 100}}>
                 <div className = "writing_part">
                     <div style = {{maxWidth: 700, marginTop: 50, marginLeft: 100}}>
                         {/* Writing form -- Start */}

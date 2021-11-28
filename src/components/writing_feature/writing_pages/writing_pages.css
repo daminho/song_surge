@@ -58,13 +58,15 @@
 }
 
 .writing_part {
-    width: 60%;
+    width: 50%;
     align-content: center;
 }
 
 .preview_part {
     width: 40%;
     align-content: center;
+    display: flex;
+    margin: 0 auto;
     /* text-align: center; */
 }
 

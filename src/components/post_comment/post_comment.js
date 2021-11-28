@@ -91,6 +91,7 @@ export default function UserComment(props) {
             });
             const lstCmtUI = lstCmt.map((data) => {
                 return <UserComment
+                    userId = {data.userId}
                     userName = {data.author}
                     content = {data.content}
                     createdAt = {data.createdAt}
@@ -117,6 +118,26 @@ export default function UserComment(props) {
         setCurComment(event.target.value);
     }
 
+
+    async function sendNoti() {
+        if(userId == currentUser.uid) {
+            return;
+        }
+        const writerRef = collection(db, "users/" + userId + "/notifications");
+        console.log("users/" + userId + "/notifications");
+        const noti = {
+            authorId: currentUser.uid,
+            authorName: user.username,
+            type: "replied to your comment",
+            postId: postId,
+            read: false,
+            isQuestion: isQuestion,
+            createdAt: Date.now(),
+        }
+        const newNoti = await addDoc(writerRef, noti);
+    }
+
+
     async function keyDown(event) {
         if(event.keyCode == 13) {
             event.preventDefault();
@@ -125,6 +146,7 @@ export default function UserComment(props) {
             }
             const commentData = {
                 author: user.username,
+                userId: currentUser.uid,
                 content: curComment,
                 createdAt: Date.now(),
                 type: "text",
@@ -136,8 +158,9 @@ export default function UserComment(props) {
 
             setReplyOnly(false);
             setShowReply(true);
-
+            console.log("users/" + userId);
             const postCmtRef = collection(db, replyCmtPath);
+            sendNoti();
             const newCmtRef =  await addDoc(postCmtRef, commentData);
             
         }

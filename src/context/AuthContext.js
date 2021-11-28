@@ -34,10 +34,6 @@ export function AuthProvider({ children }) {
         return unsubscribe;
     }, [])
 
-    function signin(email, password) {
-
-    }
-
     const value = {
         currentUser,
         login,

@@ -1,13 +1,7 @@
 import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import { setDoc, doc, collection, getDoc } from "firebase/firestore";
+import { setDoc, doc} from "firebase/firestore";
 import { useNavigate } from "react-router";
-import { auth, db } from "../../firebase";
+import { db } from "../../firebase";
 import { useAuth } from '../../context/AuthContext';
 import { Form, Button } from "react-bootstrap";
 import AppNavBar from "../constant/web_bar";
@@ -19,10 +13,6 @@ function SignIn() {
   const [registerUserName, setRegisterUserName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorType, setErrorType] = useState(0);
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [loginUserName, setLoginUserName] = useState("");
-  const [user, setUser] = useState({});
   const { signup } = useAuth();
   const navigate = useNavigate();
 

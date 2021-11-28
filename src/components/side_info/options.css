@@ -4,7 +4,7 @@
 }
 
 .option_style {
-    position: fixed;
+    position: sticky;
 }
 
 .option_box {
@@ -47,7 +47,7 @@
 }
 
 .trendingbox {
-    position: fixed;
+    position: sticky;
     position: relative;
     width: 300px;
     padding: 24px 28px;

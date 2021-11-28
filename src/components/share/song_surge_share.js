@@ -15,6 +15,7 @@ export default function SongSurgeShare(props) {
     const [moodyFilter, setMoodyFilter] = useState();
     const [hashtagFilter, setHashtagFilter] = useState();
     const [trendToday, setTrendToday] = useState([]);
+    const [userNameFilter, setNameFilter] = useState();
     useEffect(() => {
         const getPosts = async () => {
             const data = await getDocs(postsRef);
@@ -43,9 +44,10 @@ export default function SongSurgeShare(props) {
                     }
                 }
                 var okMoody = moodyFilter == undefined;
+                var okName = userNameFilter == docData.userName || userNameFilter == undefined;
                 if(okMoody == false && moodyFilter == docData.moody) okMoody = true;
-                ok += (okMoody && okHashtag) ? 1 : 0;
-                return (okHashtag && okMoody) ? <div style = {{width: "fit-content", marginRight: 30, marginLeft: 30}}>
+                ok += (okMoody && okHashtag && okName) ? 1 : 0;
+                return (okHashtag && okMoody && okName) ? <div style = {{width: "fit-content", marginRight: 30, marginLeft: 30}}>
                     <PostContent 
                     postId = {doc[1]}
                     link = {docData.songLink}
@@ -57,6 +59,7 @@ export default function SongSurgeShare(props) {
                     userName = {docData.userName}
                     postingTime = {docData.postingTime}
                     isPost = {true}
+                    onClickUserName = {setNameFilter}
                     onClickHashtag = {setHashtagFilter}
                     onClickMoody = {setMoodyFilter}/>
                 </div> : <div/>;
@@ -76,15 +79,15 @@ export default function SongSurgeShare(props) {
         }
 
         getPosts();
-    }, [moodyFilter, hashtagFilter])
+    }, [moodyFilter, hashtagFilter, userNameFilter])
 
     return (
         <div>
             <AppNavBar nameAppBar = "iSongSurgeShare"/>
             <div className = "feed_content">
-                <div style = {{ width: 400}}>
-                    <Filter mood = {moodyFilter} hashtag = {hashtagFilter}
-                     changeMoody = {setMoodyFilter} changeHashtag = {setHashtagFilter}/>
+                <div style = {{width: 350}}>
+                    <Filter mood = {moodyFilter} hashtag = {hashtagFilter} userName = {userNameFilter}
+                     changeMoody = {setMoodyFilter} changeHashtag = {setHashtagFilter} changeUserName ={setNameFilter}/>
                 </div>
                 <div style = {{marginTop: 100}}>
                     {posts}
