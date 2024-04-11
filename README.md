@@ -1,3 +1,5 @@
+# This is project code for CS473- Introduction to Social Computing
+
 (the actual final code are implemented in 'writing_feature' branch)
 # Project Summary
 Many people listen to music alone during the pandemic, but we strongly believe that interacting with other music lovers could properly enrich their music experience.
